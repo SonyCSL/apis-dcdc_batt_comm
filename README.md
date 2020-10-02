@@ -21,6 +21,7 @@ apis-main仕様書を参照すること。)
 
 
 ## License
+[Apache License Version 2.0](https://github.com/oes-github/apis-dcdc_batt_comm/blob/master/LICENSE)
 
 
 ## Notice
