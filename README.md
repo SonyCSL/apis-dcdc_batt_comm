@@ -9,6 +9,7 @@ Device Driverである。制御対象のDCDC ConverterとしてTDKラムダ製�
 dcdc_batt_comm上にはPython Bottleを利用してWeb Serverが立っており、apis-mainとの通信は  
 そのWeb Serverを利用してSony CSL開発のWeb APIを介して通信を行う。  
 
+![dcdc_batt_comm](https://user-images.githubusercontent.com/71874910/94906900-40b64200-04da-11eb-84b5-1134cd3d6b36.PNG)
 
 ## Getting Started
 
