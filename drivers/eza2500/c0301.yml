@@ -1,0 +1,22 @@
+-
+  name: 3-1
+  class: command_03_01
+  command: 0x18
+  send: []
+  ack:
+    - cvb H "Q14,32/48-62/48"
+    - drb H "Q13,0/1-3.999/1"
+  nak:
+    - ercd H
+-
+  name: 3-4
+  class: command_03_04
+  command: 0x18
+  send:
+    - cvb H "Q14,32/48-62/48"
+    - drb H "Q13,0/1-3.999/1"
+  ack:
+    - cvb H "Q14,32/48-62/48"
+    - drb H "Q13,0/1-3.999/1"
+  nak:
+    - ercd H

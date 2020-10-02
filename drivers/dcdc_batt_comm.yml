@@ -1,0 +1,58 @@
+ess_system:
+  type: essx_type_oes
+  dcdc_dev:
+    -
+      name: dcdc1
+      config: dcdc_default_eza2500
+
+      class: 'ESSXRS485'
+      #params: ["/dev/ttyO2", 19200]    #for BBB
+      params: ["/dev/ttyUSB0", 19200]  #for RaspberryPi3B
+      kwparams:
+        #dir_pin: "P8_7"                #for BBB                
+        dir_pin: "not_used"            #for RaspberryPi3B
+
+      address1:  0 #DCDC側アドレス
+      address2: 16 #ESSX側アドレス
+  battery_dev:
+    -
+      name: battery
+      config: battery_emulator
+      class: 'ESSXModbus'
+      params: []
+      kwparams:
+        method: 'rtu'
+        #port: "/dev/ttyO5"            #for BBB
+        port: "/dev/ttyUSB1"          #for RaspberryPi3B
+        timeout: 1
+        baudrate: 9600
+        #dir_pin: "P8_9"               #for BBB
+        dir_pin: "not_used"               #for RaspberryPi3B
+      unit: 1 #MODBUSアドレス
+      modbus_adr_rsoc: 30030
+      modbus_adr_status: 30031
+dcdc:
+  dcdc_default_eza2500:
+    type: tdk_eza2500
+    number_of_dcdc_error_retry: 3 #エラー時のリトライ回数
+    number_of_timeout_retry: 3 #タイムアウト時のリトライ回数
+    wait_for_retry: 0.1 #リトライする場合の待ち時間
+    config:
+      cib: 52     #バッテリ上限電流
+      ubv: 40     #バッテリ低電圧閾値
+      obv: 59     #バッテリ過電圧閾値
+      ugv: 300    #グリッド低電圧閾値
+      ogv: 400    #グリッド過電圧閾値
+      bcf: 0x0003 #コンバータ設定
+      cvb: 57.6   #バッテリ目標電圧
+      dlb: 49     #バッテリ放電終止電圧
+      cdb: 1.2    #バッテリ充電上限予告電圧偏差
+      ddb: 1.8    #バッテリ充電終止予告電圧偏差
+      drb: 0.00   #バッテリドループ率
+battery:
+  battery_emulator:
+    type: battery_emulator
+    config:
+      battery_voltage: 52.0  #★暫定値
+      battery_current: 20.0  #★暫定値
+      force_dcdc_waiting: No #バッテリ融通不許可時にDCDCコンバータを待機モードにする(YAMLのBooleanは Yes/No)

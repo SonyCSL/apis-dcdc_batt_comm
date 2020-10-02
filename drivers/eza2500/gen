@@ -1,0 +1,37 @@
+#!/bin/sh
+
+./conv.rb c0101.yml > command0101.py
+./conv.rb c0201.yml > command0201.py
+./conv.rb c0301.yml > command0301.py
+./conv.rb c0401.yml > command0401.py
+./conv.rb c0501.yml > command0501.py
+./conv.rb c0601.yml > command0601.py
+./conv.rb c0701.yml > command0701.py
+./conv.rb c0801.yml > command0801.py
+./conv.rb c0901.yml > command0901.py
+./conv.rb c1001.yml > command1001.py
+./conv.rb c1101.yml > command1101.py
+./conv.rb c1201.yml > command1201.py
+./conv.rb c1301.yml > command1301.py
+./conv.rb c1401.yml > command1401.py
+./conv.rb c1501.yml > command1501.py
+./conv.rb c1601.yml > command1601.py
+
+export PYTHONPATH=..
+
+python command0101.py
+python command0201.py
+python command0301.py
+python command0401.py
+python command0501.py
+python command0601.py
+python command0701.py
+python command0801.py
+python command0901.py
+python command1001.py
+python command1101.py
+python command1201.py
+python command1301.py
+python command1401.py
+python command1501.py
+python command1601.py

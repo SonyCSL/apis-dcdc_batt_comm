@@ -1,0 +1,22 @@
+-
+  name: 8-1
+  class: command_08_01
+  command: 0x16
+  send: []
+  ack:
+    - ccr H "Q14,0/48-12/48"
+    - ddr H "Q14,0/48-12/48"
+  nak:
+    - ercd H
+-
+  name: 8-4
+  class: command_08_04
+  command: 0x16
+  send:
+    - ccr H "Q14,0/48-12/48"
+    - ddr H "Q14,0/48-12/48"
+  ack:
+    - ccr H "Q14,0/48-12/48"
+    - ddr H "Q14,0/48-12/48"
+  nak:
+    - ercd H

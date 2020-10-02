@@ -1,0 +1,23 @@
+-
+  name: 9-1
+  class: command_09_01
+  command: 0x12
+  send: []
+  ack:
+    - alm1 H
+    - alm2 H
+    - alm3 H
+  nak:
+    - ercd H
+-
+  name: 9-4
+  class: command_09_04
+  command: 0x12
+  send:
+    - d0 B
+    - d1 B
+  ack:
+    - d0 B
+    - d1 B
+  nak:
+    - ercd H

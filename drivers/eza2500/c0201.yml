@@ -1,0 +1,10 @@
+- 
+  name: 2-1
+  class: command_02_01
+  command: 0x01
+  send: []
+  ack:
+    - cst H
+    - ext H
+  nak:
+    - ercd H

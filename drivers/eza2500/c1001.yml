@@ -1,0 +1,16 @@
+-
+  name: 10-1
+  class: command_10_01
+  command: 0x09
+  send: []
+  ack:
+    - vg h "Q14,/380"
+    - ig h "Q13,/7.8125"
+    - vb h "Q14,/48"
+    - ib h "Q13,/52.08"
+    - wg h "Q11,/2500"
+    - wb h "Q11,/2500"
+    - ic h
+    - tmp h "Q7,/1"
+  nak:
+    - ercd H

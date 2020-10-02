@@ -1,0 +1,16 @@
+-
+  name: 13-1
+  class: command_13_01
+  command: 0x0e
+  send: []
+  ack:
+    - tsq H
+    - tpq H
+    - v5q H
+    - fn1q H
+    - fn2q H
+    - fn3q H
+    - fn4q H
+    - fn5q H
+  nak:
+    - ercd H

@@ -1,0 +1,22 @@
+-
+  name: 5-1
+  class: command_05_01
+  command: 0x17
+  send: []
+  ack:
+    - pdz H "Q14,0/380-57/380"
+    - mdz H "Q14,0/380-57/380"
+  nak:
+    - ercd H
+-
+  name: 5-4
+  class: command_05_04
+  command: 0x17
+  send:
+    - pdz H "Q14,0/380-57/380"
+    - mdz H "Q14,0/380-57/380"
+  ack:
+    - pdz H "Q14,0/380-57/380"
+    - mdz H "Q14,0/380-57/380"
+  nak:
+    - ercd H

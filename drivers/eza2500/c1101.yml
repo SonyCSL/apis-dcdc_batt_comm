@@ -1,0 +1,16 @@
+-
+  name: 11-1
+  class: command_11_01
+  command: 0x0a
+  send: []
+  ack:
+    - ts h
+    - tp h
+    - v5s h "Q10,/1"
+    - fan1 h "Q0,/1"
+    - fan2 h "Q0,/1"
+    - fan3 h "Q0,/1"
+    - fan4 h "Q0,/1"
+    - fan5 h "Q0,/1"
+  nak:
+    - ercd H

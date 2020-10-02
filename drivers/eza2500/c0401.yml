@@ -1,0 +1,22 @@
+- 
+  name: 4-1
+  class: command_04_01
+  command: 0x1a
+  send: []
+  ack:
+    - dvg H "Q14,260/380-390/380"
+    - drg H "Q13,0/1-3.999/1"
+  nak:
+    - ercd H
+- 
+  name: 4-4
+  class: command_04_04
+  command: 0x1a
+  send: 
+    - dvg H "Q14,260/380-390/380"
+    - drg H "Q13,0/1-3.999/1"
+  ack:
+    - dvg H "Q14,260/380-390/380"
+    - drg H "Q13,0/1-3.999/1"
+  nak:
+    - ercd H

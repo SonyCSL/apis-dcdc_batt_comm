@@ -1,0 +1,19 @@
+- 
+  name: 1-1
+  class: command_01_01
+  command: 0x00
+  send: []
+  ack:
+    - mode H
+  nak:
+    - ercd H
+- 
+  name: 1-4
+  class: command_01_04
+  command: 0x00
+  send:
+    - mode H
+  ack:
+    - mode H
+  nak:
+    - ercd H

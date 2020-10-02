@@ -1,0 +1,10 @@
+-
+  name: 15-1
+  class: command_15_01
+  command: 0x1e
+  send: []
+  ack:
+    - min B
+    - maj B
+  nak:
+    - ercd H

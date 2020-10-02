@@ -1,0 +1,16 @@
+-
+  name: 12-1
+  class: command_12_01
+  command: 0x0d
+  send: []
+  ack:
+    - vgq H
+    - igq H
+    - vbq H
+    - ibq H
+    - wgq H
+    - wbq H
+    - icq H
+    - tmpq H
+  nak:
+    - ercd H
