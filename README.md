@@ -25,3 +25,4 @@ apis-main仕様書を参照すること。)
 
 
 ## Notice
+[Notice](https://github.com/oes-github/apis-dcdc_batt_comm/blob/master/NOTICE.md)
