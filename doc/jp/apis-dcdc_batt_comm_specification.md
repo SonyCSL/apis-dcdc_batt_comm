@@ -146,56 +146,56 @@ TCP/IPで Listenする ポート番号。defaultは 8080。
 設定ファイルはYAML形式で記述する。デフォルトの設定ファイルはdcdc\_batt\_comm.ymlという名前でessx\_server.pyと同じディレクトリに置く必要がある。
 
 ess\_system:  
-type: essx\_type\_oes  
-dcdc\_dev:  
-name: dcdc1  
-config: dcdc\_default\_eza2500  
-class: 'ESSXRS485'  
-params: \["/dev/ttyO2", 19200\]  
-kwparams:  
-dir\_pin: "P8\_7"  
+&emsp;type: essx\_type\_oes  
+&emsp;dcdc\_dev:  
+&emsp;&emsp;name: dcdc1  
+&emsp;&emsp;config: dcdc\_default\_eza2500  
+&emsp;&emsp;class: 'ESSXRS485'  
+&emsp;&emsp;params: \["/dev/ttyO2", 19200\]  
+&emsp;&emsp;kwparams:  
+&emsp;&emsp;&emsp;dir\_pin: "P8\_7"  
 
 battery\_dev:  
-name: battery  
-config: battery\_emulator  
-class: 'ESSXModbus'  
-params: \[\]  
-kwparams:  
-method: 'rtu'  
-port: "/dev/ttyO5"  
-timeout: 1  
-baudrate: 9600  
-dir\_pin: "P8\_9"  
-unit: 1 \#MODBUSアドレス  
-modbus\_adr\_rsoc: 30030  
-modbus\_adr\_status: 30031  
+&emsp;name: battery  
+&emsp;config: battery\_emulator  
+&emsp;class: 'ESSXModbus'  
+&emsp;params: \[\]  
+&emsp;kwparams:  
+&emsp;&emsp;method: 'rtu'  
+&emsp;&emsp;port: "/dev/ttyO5"  
+&emsp;&emsp;timeout: 1  
+&emsp;&emsp;baudrate: 9600  
+&emsp;&emsp;dir\_pin: "P8\_9"  
+&emsp;unit: 1 \#MODBUSアドレス  
+&emsp;modbus\_adr\_rsoc: 30030  
+&emsp;modbus\_adr\_status: 30031  
 
 dcdc:  
-dcdc\_default\_eza2500:  
-type: tdk\_eza2500  
-number\_of\_dcdc\_error\_retry: 3 \#エラー時のリトライ回数  
-number\_of\_timeout\_retry: 3 \#タイムアウト時のリトライ回数  
-wait\_for\_retry: 0.1 \#リトライする場合の待ち時間  
-config:  
-cib: 52 \#バッテリ上限電流  
-ubv: 40 \#バッテリ低電圧閾値  
-obv: 59 \#バッテリ過電圧閾値  
-ugv: 300 \#グリッド低電圧閾値  
-ogv: 400 \#グリッド過電圧閾値  
-bcf: 0x0003 \#コンバータ設定  
-cvb: 57.6 \#バッテリ目標電圧  
-dlb: 49 \#バッテリ放電終止電圧  
-cdb: 1.2 \#バッテリ充電上限予告電圧偏差  
-ddb: 1.8 \#バッテリ充電終止予告電圧偏差  
-drb: 0.00 \#バッテリドループ率  
+&emsp;dcdc\_default\_eza2500:  
+&emsp;&emsp;type: tdk\_eza2500  
+&emsp;&emsp;number\_of\_dcdc\_error\_retry: 3 \#エラー時のリトライ回数  
+&emsp;&emsp;number\_of\_timeout\_retry: 3 \#タイムアウト時のリトライ回数  
+&emsp;&emsp;wait\_for\_retry: 0.1 \#リトライする場合の待ち時間  
+&emsp;&emsp;config:  
+&emsp;&emsp;&emsp;cib: 52 \#バッテリ上限電流  
+&emsp;&emsp;&emsp;ubv: 40 \#バッテリ低電圧閾値  
+&emsp;&emsp;&emsp;obv: 59 \#バッテリ過電圧閾値  
+&emsp;&emsp;&emsp;ugv: 300 \#グリッド低電圧閾値  
+&emsp;&emsp;&emsp;ogv: 400 \#グリッド過電圧閾値  
+&emsp;&emsp;&emsp;bcf: 0x0003 \#コンバータ設定  
+&emsp;&emsp;&emsp;cvb: 57.6 \#バッテリ目標電圧  
+&emsp;&emsp;&emsp;dlb: 49 \#バッテリ放電終止電圧  
+&emsp;&emsp;&emsp;cdb: 1.2 \#バッテリ充電上限予告電圧偏差  
+&emsp;&emsp;&emsp;ddb: 1.8 \#バッテリ充電終止予告電圧偏差  
+&emsp;&emsp;&emsp;drb: 0.00 \#バッテリドループ率  
 
 battery:  
-battery\_emulator:  
-type: battery\_emulator  
-config:  
-battery\_voltage: 52.0  
-battery\_current: 20.0  
-force\_dcdc\_waiting: No  
+&emsp;battery\_emulator:  
+&emsp;&emsp;type: battery\_emulator  
+&emsp;&emsp;config:  
+&emsp;&emsp;&emsp;battery\_voltage: 52.0  
+&emsp;&emsp;&emsp;battery\_current: 20.0  
+&emsp;&emsp;&emsp;force\_dcdc\_waiting: No  
 
 **・設定項目詳細**
 
@@ -1159,8 +1159,8 @@ ESSXRS485(\*args, \*\*kwargs)
 
 **・コンストラクタ**
 
-> serial.Serialの全パラメータに加え dir\_pin というオプションが追加されている。  
-> /dev/ttyO2を利用する際には P8\_7、/dev/ttyO5を利用する際には P8\_9を指定する。
+serial.Serialの全パラメータに加え dir\_pin というオプションが追加されている。  
+/dev/ttyO2を利用する際には P8\_7、/dev/ttyO5を利用する際には P8\_9を指定する。
 
 指定しない場合は P8\_9がGPIOの対応ピンになる。(/dev/ttyO5の利用前提)
 
@@ -1168,8 +1168,8 @@ ESSXRS485(\*args, \*\*kwargs)
 
 デフォルトが P8\_7になっていない。
 
-> &lt;例&gt;  
-> dev = ESSXRS485("/dev/ttyO2", 115200, dir\_pin = 'P8\_7')
+&lt;例&gt;  
+dev = ESSXRS485("/dev/ttyO2", 115200, dir\_pin = 'P8\_7')
 
 ・write(self, b):
 
