@@ -47,6 +47,7 @@
 
 &emsp;&emsp;[5.4.2.ESSXModbusClient(essx\_modbus.py)](#anchor5-4-2)
 
+[6.OSSライセンス](#anchor6)
 
 <a id="anchor1"></a>
 **1.用語・略語**
