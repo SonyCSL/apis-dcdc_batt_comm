@@ -48,6 +48,7 @@
 [5.4.2.ESSXModbusClient(essx\_modbus.py)](#anchor5-4-2)
 
 
+<a id="anchor1"></a>
 **1.用語・略語**
 ==============
 
@@ -63,6 +64,7 @@
 |                 |                                                                                                                                              |
 |                 |                                                                                                                                              |
 
+<a id="anchor2"></a>
 **2.概要**
 ========
 
@@ -70,6 +72,7 @@ dcdc\_batt\_commはapis-mainからの指示に従って実際にハードウェ�
 
 <img src="media/media/image1.png" style="width:5.83311in;height:2.94792in" />
 
+<a id="anchor3"></a>
 **3.ソフトウェアディレクトリ構造**
 ================================
 
@@ -82,9 +85,11 @@ essx/ ESSX関連のpython module
 eza2500/ EZA2500関連のpython module  
 battery\_emulator バッテリエミュレータ関連のpython module  
 
+<a id="anchor4"></a>
 4.**ソフトウェアモジュール概要**
 ==============================
 
+<a id="anchor4-1"></a>
 **4.1.ESSXServer**
 --------------
 
@@ -94,23 +99,28 @@ REST形式のAPIを実装するメインとなるプログラムである。こ�
 
 正常に処理が終了した場合はステータスコード200とその結果を仕様書に従ってJSONで返す。コントローラーにて例外を受けとった場合ステータスコード400と例外のメッセージをJSONにて返す単純な構造とし、デバイスと通信等を行う機能は後述するコントローラーに実装される。  
 
+<a id="anchor4-2"></a>
 **4.2.Controller(ESSXTypeOES)**
 ---------------------------
 
 ESSXServerからリクエストを受けとりデバイスにコマンドを送りレスポンスを返すソフトウェアモジュールである。エラー時のリトライ処理などもコントローラーで行う。
 
+<a id="anchor5"></a>
 **5.ソフトウェアモジュール詳細**
 ==============================
 
+<a id="anchor5-1"></a>
 **5.1.ESSXServer**
 --------------
 
 Userは下記のWeb APIにてMain Controllerと情報のやり取りを行うことができる。以下にそのWeb APIの仕様を説明する。
 
+<a id="anchor5-1-1"></a>
 **5.1.1.ESSXServerの起動方法**
 
 essxディレクトリ内で “python essx\_server.py”で起動する。実際のデバイスファイル(/dev/ttyO2等)や方向制御のGPIOへのアクセス権が必要なので必要に応じて sudoを行って/dev/ttyO2等のパーミッションを変更する必要がある。
 
+<a id="anchor5-1-2"></a>
 **5.1.2.ESSXServerの起動オプション等**
 
 usage: essx\_server.py \[-h\] \[--host HOST\] \[--port PORT\] \[--debug\]  
@@ -141,6 +151,7 @@ TCP/IPで Listenする ポート番号。defaultは 8080。
 ・--goodbye  
 /essx/goodbye APIを有効かするか否か  
 
+<a id="anchor5-1-3"></a>
 **5.1.3.ESSXServerの設定ファイルについて**
 
 設定ファイルはYAML形式で記述する。デフォルトの設定ファイルはdcdc\_batt\_comm.ymlという名前でessx\_server.pyと同じディレクトリに置く必要がある。
@@ -278,10 +289,12 @@ params: \["/dev/ttyO2", 19200\]
 kwparams:  
 dir\_pin: "P8\_7"  
 
+<a id="anchor5-1-4"></a>
 **5.1.4.ESSXServerのREST APIと仕様**
 
 基本的にはESSXServerは設定ファイルにひも付いたコントローラーのAPIを呼び出し、その戻りデータをJSONデータとしてクライアントに返す。リクエストとデータの実際のデータの詳細は4.2コントローラーの節に記載する。
 
+<a id="anchor5-1-4-1"></a>
 **5.1.4.1.REST APIのリクエスト及びレスポンスの値についての捕捉**
 
 **・battery\_operation\_statusの意味**
@@ -337,11 +350,13 @@ alarmの文字列化
 | 1                    | "charge"    |
 | 2                    | "discharge" |
 
+<a id="anchor5-2"></a>
 **5.2.コントローラー**
 ------------------
 
 Userは下記のWeb APIにてMain Controllerと情報のやり取りを行うことができる。以下にそのWeb APIの仕様を説明する。
 
+<a id="anchor5-2-1"></a>
 **5.2.1.ESSXtypeOES**
 
 REST APIから呼び出され実際のデバイスを制御するコントローラーのクラスである。
@@ -350,11 +365,13 @@ REST APIから呼び出され実際のデバイスを制御するコントロー
 
 REST API用のメソッドはその戻り値がそのままJSONデータとしてREST APIからWeb ブラウザに返される。
 
+<a id="anchor5-2-1-1"></a>
 **5.2.1.1.応答速度の設計**
 
 REST API用のメソッドは要求仕様書に沿ってDCDC以外のリクエストについては0.1sec(100msec)以内を目標として設計されている。  
 DCDCコンバータの設定・反映確認リクエスト(/remote/get系API）については 0.6sec(600msec)以内、同じく状態確認リクエスト（/remote/set系API）は0.5s(500msec)以内を目標として設計されている。
 
+<a id="anchor5-2-1-2"></a>
 **5.2.1.2.class ESSXTypeOES**
 
 ESSXTypeOES(dcdc\_dev = None, bat\_dev = None, dcdc\_config = None, bat\_config = None, ad1 = 0, ad2 = 1, name = None)
@@ -1055,11 +1072,13 @@ REST APIの仕様書上は dvg, drgらのパラメータは省略されても過
 
 }
 
+<a id="anchor5-3"></a>
 **5.3.デバイス**
 ------------
 
 デバイスはコントローラーと低レベルデバイスの中間に位置し下層からやってきたデータをコントローラーが扱い易い形式にし、下層デバイスにデータを送るモジュールである。
 
+<a id="anchor5-3-1"></a>
 **5.3.1.EZA2500Device.py**
 
 コントローラーから呼び出され実際の低レベルデバイスにデータを送るクラスである。
@@ -1074,6 +1093,7 @@ EZA2500Device(dev = None, timeout = None)
 
 -   timeout: read/writeでこの時間が経過するまでにデータが読めない場合はTimeoutExceptionが発生する。
 
+<a id="anchor5-3-1-1"></a>
 **5.3.1.1read(self, size)**
 
 sizeバイトデータを低レベルデバイスから読む。
@@ -1090,6 +1110,7 @@ timeoutを10msecとしても 最悪20msecかかることが考えられる。
 また、低レベルデバイスのread()のtimeoutはそもそも精度が高くないので timeoutを  
 動作の基準として期待はできない。
 
+<a id="anchor5-3-1-2"></a>
 **5.3.1.2.write(self,size)**
 
 sizeバイトデータを低レベルデバイスへ書く。
@@ -1098,6 +1119,7 @@ sizeバイトデータを低レベルデバイスへ書く。
 
 最終的にsizeバイト書くまでtimeout以上経過したら例外が発生する。なお、実際にRS485に書くデータはサイズが小さいので一回で書けないということは無いようである。
 
+<a id="anchor5-3-2"></a>
 **5.3.2.BatteryEmulator**
 
 　バッテリエミュレータと通信を行うデバイス
@@ -1144,9 +1166,11 @@ cmmerrは 通信エラーが発生したか(True)否か(False)
 
 battery\_operation\_statusは現在 0と3しか返さない。
 
+<a id="anchor5-4"></a>
 **5.4.低レベルデバイス**
 --------------------
 
+<a id="anchor5-4-1"></a>
 **5.4.1.RS485(essx\_rs485.py)**
 
 RS485のデバイスに(/dev/ttyO2, /dev/ttyO5）にアクセスする低レベルのデバイス制御クラスである。
@@ -1175,6 +1199,7 @@ dev = ESSXRS485("/dev/ttyO2", 115200, dir\_pin = 'P8\_7')
 
 GPIOの対応ピンのHIGH, LOWを切替えて writeをするメソッド
 
+<a id="anchor5-4-2"></a>
 **5.4.2.ESSXModbusClient(essx\_modbus.py)**
 
 pymodbusモジュールに含まれる ModbusSerialClientを拡張したクラス。pymodbusのModbusSerialClientは直接内部で serial.Serialを生成し使用するコードになっている。
@@ -1183,6 +1208,7 @@ pymodbusモジュールに含まれる ModbusSerialClientを拡張したクラ�
 
 動作仕様に関しては通信デバイスとしてESSXRS485を使うだけでインターフェース等はModbusSerialClientと同じであるため割愛する。
 
+<a id="anchor6"></a>
 **6.OSSライセンス**
 =================
 
