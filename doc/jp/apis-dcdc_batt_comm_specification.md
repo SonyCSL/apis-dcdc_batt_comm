@@ -13,13 +13,13 @@
 
 [4.ソフトウェアモジュール概要](#anchor4)
 
-[4.1.ESSXServer](#anchor4-1)
+&emsp;[4.1.ESSXServer](#anchor4-1)
 
-[4.2.EController(ESSXTypeOES)](#anchor4-2)
+&emsp;[4.2.EController(ESSXTypeOES)](#anchor4-2)
 
 [5.ソフトウェアモジュール詳細](#anchor5)
 
-[5.1.ESSXServer](#anchor5-1)
+&emsp;[5.1.ESSXServer](#anchor5-1)
 
 [5.1.1.ESSXServerの起動方法](#anchor5-1-1)
 
