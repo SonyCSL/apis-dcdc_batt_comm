@@ -70,196 +70,136 @@ dcdc\_batt\_commはapis-mainからの指示に従って実際にハードウェ�
 
 <img src="media/media/image1.png" style="width:5.83311in;height:2.94792in" />
 
-**ソフトウェアディレクトリ構造**
+**3.ソフトウェアディレクトリ構造**
 ================================
 
-> 以下にディレクトリ構造以下のようになっている。
->
-> drivers/
->
-> essx\_server.py bottleを利用したWebサーバ(ESSXServer)
->
-> dcdc\_batt\_comm.yml 設定用YAMLファイル
->
-> essx/ ESSX関連のpython module
->
-> eza2500/ EZA2500関連のpython module
->
-> battery\_emulator バッテリエミュレータ関連のpython module
+以下にディレクトリ構造以下のようになっている。
 
-1.  **ソフトウェアモジュール概要**
-    ==============================
+drivers/  
+essx\_server.py bottleを利用したWebサーバ(ESSXServer)  
+dcdc\_batt\_comm.yml 設定用YAMLファイル  
+essx/ ESSX関連のpython module  
+eza2500/ EZA2500関連のpython module  
+battery\_emulator バッテリエミュレータ関連のpython module  
 
-    1.  **ESSXServer**
-        --------------
+4.**ソフトウェアモジュール概要**
+==============================
 
-REST形式のAPIを実装するメインとなるプログラムである。このプログラムを実行するとWeb Serverが立ちあがる。URLパスと処理の対応が記述されており、HTTPのRequestを受理すると適当な関数が呼ばれる。各関数はパラメータのチェックを行った後、コントローラーを呼び出す。コントローラーは以下が用意されている。
+**4.1.ESSXServer**
+--------------
 
--   essx.essx\_type\_oes
+REST形式のAPIを実装するメインとなるプログラムである。このプログラムを実行するとWeb Serverが立ちあがる。URLパスと処理の対応が記述されており、HTTPのRequestを受理すると適当な関数が呼ばれる。各関数はパラメータのチェックを行った後、コントローラーを呼び出す。コントローラーは以下が用意されている。  
 
-正常に処理が終了した場合はステータスコード200とその結果を仕様書に従ってJSONで返す。コントローラーにて例外を受けとった場合ステータスコード400と例外のメッセージをJSONにて返す単純な構造とし、デバイスと通信等を行う機能は後述するコントローラーに実装される。
+-essx.essx\_type\_oes  
 
-**Controller(ESSXTypeOES)**
+正常に処理が終了した場合はステータスコード200とその結果を仕様書に従ってJSONで返す。コントローラーにて例外を受けとった場合ステータスコード400と例外のメッセージをJSONにて返す単純な構造とし、デバイスと通信等を行う機能は後述するコントローラーに実装される。  
+
+**4.2.Controller(ESSXTypeOES)**
 ---------------------------
 
 ESSXServerからリクエストを受けとりデバイスにコマンドを送りレスポンスを返すソフトウェアモジュールである。エラー時のリトライ処理などもコントローラーで行う。
 
-1.  **ソフトウェアモジュール詳細**
-    ==============================
+**5.ソフトウェアモジュール詳細**
+==============================
 
-    1.  **ESSXServer**
-        --------------
+**5.1.ESSXServer**
+--------------
 
 Userは下記のWeb APIにてMain Controllerと情報のやり取りを行うことができる。以下にそのWeb APIの仕様を説明する。
 
-### **ESSXServerの起動方法**
+**5.1.1.ESSXServerの起動方法**
 
-essxディレクトリ内で “python essx\_server.py”で起動する。実際のデバイスファイル(/dev/ttyO2等)や方向制御のGPIOへのアクセス権が必要なので必要に応じて sudoを行って
+essxディレクトリ内で “python essx\_server.py”で起動する。実際のデバイスファイル(/dev/ttyO2等)や方向制御のGPIOへのアクセス権が必要なので必要に応じて sudoを行って/dev/ttyO2等のパーミッションを変更する必要がある。
 
-/dev/ttyO2等のパーミッションを変更する必要がある。
+**5.1.2.ESSXServerの起動オプション等**
 
-### **ESSXServerの起動オプション等**
+usage: essx\_server.py \[-h\] \[--host HOST\] \[--port PORT\] \[--debug\]  
+\[--config CONFIG\]  
+ESS Server  
+optional arguments:  
+-h, --help show this help message and exit  
+--host HOST  
+--port PORT    
+--debug  
+--config CONFIG  
 
-> usage: essx\_server.py \[-h\] \[--host HOST\] \[--port PORT\] \[--debug\]
->
-> \[--config CONFIG\]
+・-h, --help  
+ヘルプメッセージを表示する。  
 
-ESS Server
+・--host  
+TCP/IPで Listenするアドレス。defaultは localhost。他のホストからアクセスする必要がある場合はそのホストのIPアドレスまたは 0.0.0.0を指定する必要がある。  
 
-> optional arguments:  
-> -h, --help show this help message and exit  
-> --host HOST  
-> --port PORT  
-> --debug  
-> --config CONFIG
+・--port  
+TCP/IPで Listenする ポート番号。defaultは 8080。  
 
-・-h, --help
+・--debug  
+デバッグメッセージを出すか否か  
 
-ヘルプメッセージを表示する。
+・--config  
+設定ファイルを指定する。デフォルトは dcdc\_batt\_comm.yml  
 
-・--host
+・--goodbye  
+/essx/goodbye APIを有効かするか否か  
 
-> TCP/IPで Listenするアドレス。defaultは localhost。他のホストからアクセスする必要がある場合はそのホストのIPアドレスまたは 0.0.0.0を指定する必要がある。
-
-・--port
-
-TCP/IPで Listenする ポート番号。defaultは 8080。
-
-・--debug
-
-デバッグメッセージを出すか否か
-
-・--config
-
-設定ファイルを指定する。デフォルトは dcdc\_batt\_comm.yml
-
-・--goodbye
-
-/essx/goodbye APIを有効かするか否か
-
-### **ESSXServerの設定ファイルについて**
+**5.1.3.ESSXServerの設定ファイルについて**
 
 設定ファイルはYAML形式で記述する。デフォルトの設定ファイルはdcdc\_batt\_comm.ymlという名前でessx\_server.pyと同じディレクトリに置く必要がある。
 
-ess\_system:
+ess\_system:  
+type: essx\_type\_oes  
+dcdc\_dev:  
+name: dcdc1  
+config: dcdc\_default\_eza2500  
+class: 'ESSXRS485'  
+params: \["/dev/ttyO2", 19200\]  
+kwparams:  
+dir\_pin: "P8\_7"  
 
-type: essx\_type\_oes
+battery\_dev:  
+name: battery  
+config: battery\_emulator  
+class: 'ESSXModbus'  
+params: \[\]  
+kwparams:  
+method: 'rtu'  
+port: "/dev/ttyO5"  
+timeout: 1  
+baudrate: 9600  
+dir\_pin: "P8\_9"  
+unit: 1 \#MODBUSアドレス  
+modbus\_adr\_rsoc: 30030  
+modbus\_adr\_status: 30031  
 
-dcdc\_dev:
+dcdc:  
+dcdc\_default\_eza2500:  
+type: tdk\_eza2500  
+number\_of\_dcdc\_error\_retry: 3 \#エラー時のリトライ回数  
+number\_of\_timeout\_retry: 3 \#タイムアウト時のリトライ回数  
+wait\_for\_retry: 0.1 \#リトライする場合の待ち時間  
+config:  
+cib: 52 \#バッテリ上限電流  
+ubv: 40 \#バッテリ低電圧閾値  
+obv: 59 \#バッテリ過電圧閾値  
+ugv: 300 \#グリッド低電圧閾値  
+ogv: 400 \#グリッド過電圧閾値  
+bcf: 0x0003 \#コンバータ設定  
+cvb: 57.6 \#バッテリ目標電圧  
+dlb: 49 \#バッテリ放電終止電圧  
+cdb: 1.2 \#バッテリ充電上限予告電圧偏差  
+ddb: 1.8 \#バッテリ充電終止予告電圧偏差  
+drb: 0.00 \#バッテリドループ率  
 
-name: dcdc1
-
-config: dcdc\_default\_eza2500
-
-class: 'ESSXRS485'
-
-params: \["/dev/ttyO2", 19200\]
-
-kwparams:
-
-dir\_pin: "P8\_7"
-
-battery\_dev:
-
-name: battery
-
-config: battery\_emulator
-
-class: 'ESSXModbus'
-
-params: \[\]
-
-kwparams:
-
-method: 'rtu'
-
-port: "/dev/ttyO5"
-
-timeout: 1
-
-baudrate: 9600
-
-dir\_pin: "P8\_9"
-
-unit: 1 \#MODBUSアドレス
-
-modbus\_adr\_rsoc: 30030
-
-modbus\_adr\_status: 30031
-
-dcdc:
-
-dcdc\_default\_eza2500:
-
-type: tdk\_eza2500
-
-number\_of\_dcdc\_error\_retry: 3 \#エラー時のリトライ回数
-
-number\_of\_timeout\_retry: 3 \#タイムアウト時のリトライ回数
-
-wait\_for\_retry: 0.1 \#リトライする場合の待ち時間
-
-config:
-
-cib: 52 \#バッテリ上限電流
-
-ubv: 40 \#バッテリ低電圧閾値
-
-obv: 59 \#バッテリ過電圧閾値
-
-ugv: 300 \#グリッド低電圧閾値
-
-ogv: 400 \#グリッド過電圧閾値
-
-bcf: 0x0003 \#コンバータ設定
-
-cvb: 57.6 \#バッテリ目標電圧
-
-dlb: 49 \#バッテリ放電終止電圧
-
-cdb: 1.2 \#バッテリ充電上限予告電圧偏差
-
-ddb: 1.8 \#バッテリ充電終止予告電圧偏差
-
-drb: 0.00 \#バッテリドループ率
-
-battery:
-
-battery\_emulator:
-
-type: battery\_emulator
-
-config:
-
-battery\_voltage: 52.0
-
-battery\_current: 20.0
-
-force\_dcdc\_waiting: No
+battery:  
+battery\_emulator:  
+type: battery\_emulator  
+config:  
+battery\_voltage: 52.0  
+battery\_current: 20.0  
+force\_dcdc\_waiting: No  
 
 **・設定項目詳細**
 
-> 設定項目の詳細を以下に示す。なお、YAML設定ファイルの項目を「.」をセパレータとして表記をしている。
+設定項目の詳細を以下に示す。なお、YAML設定ファイルの項目を「.」をセパレータとして表記をしている。
 
 **・全般**
 
@@ -272,7 +212,7 @@ force\_dcdc\_waiting: No
 | dcdc\. dcdc\_default\_eza2500 | dcdc\_devで設定したDCDCの詳細設定        |
 | battery. battery\_emulator:   | battery\_devで設定したバッテリの詳細設定 |
 
-・DCDCデバイス関連
+**・DCDCデバイス関連**
 
 |                                |                                                        |
 |--------------------------------|--------------------------------------------------------|
@@ -332,21 +272,17 @@ force\_dcdc\_waiting: No
 | battery.battery\_emulator.config.battery\_current      | 20.0         | バッテリ電流暫定値                                           |
 | battery.battery\_emulator.config.force\_dcdc\_waiting: | No           | バッテリ融通不許可時にDCDCコンバータを待機モードにするか否か |
 
-設定変更の例
+設定変更の例  
+RS485の 低レベルデバイスの接続を /dev/ttyO5から /dev/ttyO2にする。  
+params: \["/dev/ttyO2", 19200\]  
+kwparams:  
+dir\_pin: "P8\_7"  
 
-RS485の 低レベルデバイスの接続を /dev/ttyO5から /dev/ttyO2にする。
-
-params: \["/dev/ttyO2", 19200\]
-
-kwparams:
-
-dir\_pin: "P8\_7"
-
-### **ESSXServerのREST APIと仕様**
+**5.1.4.ESSXServerのREST APIと仕様**
 
 基本的にはESSXServerは設定ファイルにひも付いたコントローラーのAPIを呼び出し、その戻りデータをJSONデータとしてクライアントに返す。リクエストとデータの実際のデータの詳細は4.2コントローラーの節に記載する。
 
-### **REST APIのリクエスト及びレスポンスの値についての捕捉**
+**5.1.4.1.REST APIのリクエスト及びレスポンスの値についての捕捉**
 
 **・battery\_operation\_statusの意味**
 
@@ -383,19 +319,14 @@ dir\_pin: "P8\_7"
 | 1                     | "Light alarm" |
 | 2                     | "Heavy alarm" |
 
-alarmの文字列化
+alarmの文字列化  
+1.  ALM1  
+2.  CSTの bit2, 3  
+3.  CSTの bit0,1  
 
-1.  ALM1
-
-2.  CSTの bit2, 3
-
-3.  CSTの bit0,1
-
-の各値を4桁の16進数で表わしスペースを間に入れる。
-
-"0000 0000 0000"
-
-※ dcdc\_batt\_commより ALM1が最初の4桁、CSTの bit0,1が最後の4桁に修正されている。
+の各値を4桁の16進数で表わしスペースを間に入れる。  
+"0000 0000 0000"  
+※ dcdc\_batt\_commより ALM1が最初の4桁、CSTの bit0,1が最後の4桁に修正されている。  
 
 **・runningStateの文字列化**
 
@@ -406,12 +337,12 @@ alarmの文字列化
 | 1                    | "charge"    |
 | 2                    | "discharge" |
 
-**コントローラー**
+**5.2.コントローラー**
 ------------------
 
 Userは下記のWeb APIにてMain Controllerと情報のやり取りを行うことができる。以下にそのWeb APIの仕様を説明する。
 
-### **ESSXtypeOES**
+**5.2.1.ESSXtypeOES**
 
 REST APIから呼び出され実際のデバイスを制御するコントローラーのクラスである。
 
@@ -419,12 +350,12 @@ REST APIから呼び出され実際のデバイスを制御するコントロー
 
 REST API用のメソッドはその戻り値がそのままJSONデータとしてREST APIからWeb ブラウザに返される。
 
-1.  **応答速度の設計**
+**5.2.1.1.応答速度の設計**
 
 REST API用のメソッドは要求仕様書に沿ってDCDC以外のリクエストについては0.1sec(100msec)以内を目標として設計されている。  
 DCDCコンバータの設定・反映確認リクエスト(/remote/get系API）については 0.6sec(600msec)以内、同じく状態確認リクエスト（/remote/set系API）は0.5s(500msec)以内を目標として設計されている。
 
-1.  **class ESSXTypeOES**
+**5.2.1.2.class ESSXTypeOES**
 
 ESSXTypeOES(dcdc\_dev = None, bat\_dev = None, dcdc\_config = None, bat\_config = None, ad1 = 0, ad2 = 1, name = None)
 
@@ -494,7 +425,7 @@ self.vrfy(self.com1704, {
 
 それ以外は即時エラーとして終了する。
 
-1.  **REST API用のメソッド**
+**5.2.1.3.REST API用のメソッド**
 
 **・log\_data(self, params)**
 
@@ -1124,12 +1055,12 @@ REST APIの仕様書上は dvg, drgらのパラメータは省略されても過
 
 }
 
-**デバイス**
+**5.3.デバイス**
 ------------
 
 デバイスはコントローラーと低レベルデバイスの中間に位置し下層からやってきたデータをコントローラーが扱い易い形式にし、下層デバイスにデータを送るモジュールである。
 
-### **EZA2500Device.py**
+**5.3.1.EZA2500Device.py**
 
 コントローラーから呼び出され実際の低レベルデバイスにデータを送るクラスである。
 
@@ -1143,7 +1074,7 @@ EZA2500Device(dev = None, timeout = None)
 
 -   timeout: read/writeでこの時間が経過するまでにデータが読めない場合はTimeoutExceptionが発生する。
 
-    1.  **read(self, size)**
+**5.3.1.1read(self, size)**
 
 sizeバイトデータを低レベルデバイスから読む。
 
@@ -1159,7 +1090,7 @@ timeoutを10msecとしても 最悪20msecかかることが考えられる。
 また、低レベルデバイスのread()のtimeoutはそもそも精度が高くないので timeoutを  
 動作の基準として期待はできない。
 
-1.  **write(self,size)**
+**5.3.1.2.write(self,size)**
 
 sizeバイトデータを低レベルデバイスへ書く。
 
@@ -1167,13 +1098,13 @@ sizeバイトデータを低レベルデバイスへ書く。
 
 最終的にsizeバイト書くまでtimeout以上経過したら例外が発生する。なお、実際にRS485に書くデータはサイズが小さいので一回で書けないということは無いようである。
 
-### **BatteryEmulator**
+**5.3.2.BatteryEmulator**
 
 　バッテリエミュレータと通信を行うデバイス
 
 **・コンストラクタ・メソッド詳細**
 
-> BatteryEmulator(dev = None, modbus\_adr\_rsoc = None, modbus\_adr\_status = None, unit = 0x1):
+BatteryEmulator(dev = None, modbus\_adr\_rsoc = None, modbus\_adr\_status = None, unit = 0x1):
 
 **・コンストラクタ**
 
@@ -1213,10 +1144,10 @@ cmmerrは 通信エラーが発生したか(True)否か(False)
 
 battery\_operation\_statusは現在 0と3しか返さない。
 
-1.  **低レベルデバイス**
-    --------------------
+**5.4.低レベルデバイス**
+--------------------
 
-    1.  ### **RS485(essx\_rs485.py)**
+**5.4.1.RS485(essx\_rs485.py)**
 
 RS485のデバイスに(/dev/ttyO2, /dev/ttyO5）にアクセスする低レベルのデバイス制御クラスである。
 
@@ -1244,7 +1175,7 @@ ESSXRS485(\*args, \*\*kwargs)
 
 GPIOの対応ピンのHIGH, LOWを切替えて writeをするメソッド
 
-### **ESSXModbusClient(essx\_modbus.py)**
+**5.4.2.ESSXModbusClient(essx\_modbus.py)**
 
 pymodbusモジュールに含まれる ModbusSerialClientを拡張したクラス。pymodbusのModbusSerialClientは直接内部で serial.Serialを生成し使用するコードになっている。
 
@@ -1252,7 +1183,7 @@ pymodbusモジュールに含まれる ModbusSerialClientを拡張したクラ�
 
 動作仕様に関しては通信デバイスとしてESSXRS485を使うだけでインターフェース等はModbusSerialClientと同じであるため割愛する。
 
-**OSSライセンス**
+**6.OSSライセンス**
 =================
 
 以下にdcdc\_batt\_commが使用するソフトウェアとそのOSSライセンスの情報を記載する。
