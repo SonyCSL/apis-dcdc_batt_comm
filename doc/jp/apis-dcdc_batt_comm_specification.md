@@ -7,9 +7,9 @@
 
 [1.用語・略語](#anchor1)
 
-[2.ディレクトリ構造](#anchor2)
+[2.概要](#anchor2)
 
-[3.開発言語及び開発ライブラリ](#anchor3)
+[3.ソフトウェアディレクトリ構造](#anchor3)
 
 [4.ソフトウェアモジュール概要](#anchor4)
 
@@ -17,7 +17,7 @@
 
 [4.2.EController(ESSXTypeOES)](#anchor4-2)
 
-[5.詳細](#anchor5)
+[5.ソフトウェアモジュール詳細](#anchor5)
 
 [5.1.ESSXServer](#anchor5-1)
 
@@ -63,7 +63,7 @@
 |                 |                                                                                                                                              |
 |                 |                                                                                                                                              |
 
-**概要**
+**2.概要**
 ========
 
 dcdc\_batt\_commはapis-mainからの指示に従って実際にハードウェアを制御し電力融通を実現するためのDevice Driverである。(図2-1参照) 制御対象のDCDC ConverterとしてTDKラムダ製のEZA2500を想定し、RS485を使用してTDKラムダ製独自プロトコルにより通信を行う。制御対象のバッテリはRS485上でModbus RTU通信プロトコルを使用して通信を行う想定で作られている。(レジスタマップはSony CSL開発の独自仕様) dcdc\_batt\_comm上にはPython Bottleを利用してWeb Serverが立っている。apis-mainとの通信はそのWeb Serverを利用してSony CSL開発のWeb APIを介して通信を行う。(apis-mainとのWeb APIの仕様に関してはapis-main仕様書を参照すること。)
