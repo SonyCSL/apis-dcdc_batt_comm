@@ -17,7 +17,8 @@ dcdc_batt_comm上にはPython Bottleを利用してWeb Serverが立っており�
 $ mkdir apis-dcdc_batt_comm
 $ cd apis-dcdc_batt_comm
 $ git clone https://github.com/SonyCSL/apis-dcdc_batt_comm.git
-$ python startEmul.py
+$ cd drivers
+$ python essx_server.py
 
 ```
 
