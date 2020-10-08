@@ -18,7 +18,7 @@ dcdc_batt_comm上にはPython Bottleを利用してWeb Serverが立っており�
 
 
 ## Documentation
-[Documentation(JP)](https://github.com/SonyCSL/apis-dcdc_batt_comm/blob/master/doc/jp/apis-dcdc_batt_comm_specification.md)
+[apis-dcdc_batt_comm_specification(JP)](https://github.com/SonyCSL/apis-dcdc_batt_comm/blob/master/doc/jp/apis-dcdc_batt_comm_specification.md)
 
 
 ## License
