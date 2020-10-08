@@ -18,12 +18,12 @@ dcdc_batt_comm上にはPython Bottleを利用してWeb Serverが立っており�
 
 
 ## Documentation
-[apis-dcdc_batt_comm_specification(JP)](https://github.com/SonyCSL/apis-dcdc_batt_comm/blob/master/doc/jp/apis-dcdc_batt_comm_specification.md)
+&emsp;[apis-dcdc_batt_comm_specification(JP)](https://github.com/SonyCSL/apis-dcdc_batt_comm/blob/master/doc/jp/apis-dcdc_batt_comm_specification.md)
 
 
 ## License
-[Apache License Version 2.0](https://github.com/oes-github/apis-dcdc_batt_comm/blob/master/LICENSE)
+&emsp;[Apache License Version 2.0](https://github.com/oes-github/apis-dcdc_batt_comm/blob/master/LICENSE)
 
 
 ## Notice
-[Notice](https://github.com/oes-github/apis-dcdc_batt_comm/blob/master/NOTICE.md)
+&emsp;[Notice](https://github.com/oes-github/apis-dcdc_batt_comm/blob/master/NOTICE.md)
