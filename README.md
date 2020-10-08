@@ -11,20 +11,18 @@ dcdc_batt_comm上にはPython Bottleを利用してWeb Serverが立っており�
 
 ![dcdc_batt_comm](https://user-images.githubusercontent.com/71874910/94906900-40b64200-04da-11eb-84b5-1134cd3d6b36.PNG)
 
-## Getting Started
+## Installation
 ```bash
-
 $ mkdir apis-dcdc_batt_comm
 $ cd apis-dcdc_batt_comm
 $ git clone https://github.com/SonyCSL/apis-dcdc_batt_comm.git
-$ cd drivers
-$ python essx_server.py
-
 ```
 
-
-## Usage
-
+## Running
+```bash
+$ cd apis-dcdc_batt_comm/drivers
+$ python essx_server.py
+```
 
 ## Documentation
 &emsp;[apis-dcdc_batt_comm_specification(JP)](https://github.com/SonyCSL/apis-dcdc_batt_comm/blob/master/doc/jp/apis-dcdc_batt_comm_specification.md)
