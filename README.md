@@ -13,8 +13,6 @@ dcdc_batt_comm上にはPython Bottleを利用してWeb Serverが立っており�
 
 ## Installation
 ```bash
-$ mkdir apis-dcdc_batt_comm
-$ cd apis-dcdc_batt_comm
 $ git clone https://github.com/SonyCSL/apis-dcdc_batt_comm.git
 ```
 
