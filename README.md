@@ -19,7 +19,7 @@ $ git clone https://github.com/SonyCSL/apis-dcdc_batt_comm.git
 ## Running
 ```bash
 $ cd apis-dcdc_batt_comm/drivers
-$ python essx_server.py
+$ sudo python essx_server.py
 ```
 
 ## Documentation
