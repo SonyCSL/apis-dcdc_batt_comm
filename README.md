@@ -26,16 +26,9 @@ $ deactivate
 
 ## Running
 ```bash
-$ cd apis-emulator
-$ source apis-emulator/bin/activate
-$ python startEmul.py 3
-```
-
-## Running
-```bash
 $ cd apis-dcdc_batt_comm
 $ source apis-dcdc_batt_comm/bin/activate
-$ cd driver
+$ cd drivers
 $ sudo python essx_server.py
 ```
 
