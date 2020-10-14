@@ -14,11 +14,28 @@ dcdc_batt_comm上にはPython Bottleを利用してWeb Serverが立っており�
 ## Installation
 ```bash
 $ git clone https://github.com/SonyCSL/apis-dcdc_batt_comm.git
+$ cd apis-dcdc_batt_comm
+$ virtualenv apis-dcdc_batt_comm
+$ source apis-dcdc_batt_comm/bin/activate
+$ pip install bottle==0.12.13
+$ pip install pyserial==3.4
+$ pip install pyyaml==3.12
+$ pip install pymodbus==1.5.2
+$ deactivate
 ```
 
 ## Running
 ```bash
-$ cd apis-dcdc_batt_comm/drivers
+$ cd apis-emulator
+$ source apis-emulator/bin/activate
+$ python startEmul.py 3
+```
+
+## Running
+```bash
+$ cd apis-dcdc_batt_comm
+$ source apis-dcdc_batt_comm/bin/activate
+$ cd driver
 $ sudo python essx_server.py
 ```
 
