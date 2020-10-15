@@ -24,6 +24,7 @@ $ pip install bottle==0.12.13
 $ pip install pyserial==3.4
 $ pip install pyyaml==3.12
 $ pip install pymodbus==1.5.2
+$ pip install six==1.15.0
 $ deactivate
 ```
 
