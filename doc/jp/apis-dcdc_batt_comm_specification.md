@@ -1226,6 +1226,7 @@ pymodbusモジュールに含まれる ModbusSerialClientを拡張したクラ�
 | PyYAML       | 3.12       | MIT License | 無         |
 | pymodbus     | 1.5.2      | BSD License | 無         |
 | pyserial     | 3.4        | BSD License | 無         |
+| six          | 1.15.0     | MIT License | 無         |
 
 ※諸事情によりソフトウェアバージョンは変更される可能性がある。
 
