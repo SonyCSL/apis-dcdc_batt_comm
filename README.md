@@ -20,7 +20,7 @@ This software runs in Python2.7.
 $ git clone https://github.com/SonyCSL/apis-dcdc_batt_comm.git
 $ cd apis-dcdc_batt_comm
 $ virtualenv venv
-$ . apis-dcdc_batt_comm/bin/activate
+$ . venv/bin/activate
 $ pip install -r requirements.txt
 $ deactivate
 ```
@@ -40,6 +40,7 @@ $ sudo python essx_server.py
 Here is how to stop apis-dcdc_batt_comm individually.  
 
 ```bash
+$ cd apis-dcdc_batt_comm/drivers
 $ bash stop.sh
 $ deactivate
 ```
