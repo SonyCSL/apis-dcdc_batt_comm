@@ -18,20 +18,16 @@ apis-dcdc_batt_comm runs in Python2.7.
 ```bash
 $ git clone https://github.com/SonyCSL/apis-dcdc_batt_comm.git
 $ cd apis-dcdc_batt_comm
-$ virtualenv apis-dcdc_batt_comm
-$ source apis-dcdc_batt_comm/bin/activate
-$ pip install bottle==0.12.13
-$ pip install pyserial==3.4
-$ pip install pyyaml==3.12
-$ pip install pymodbus==1.5.2
-$ pip install six==1.15.0
+$ virtualenv venv
+$ . apis-dcdc_batt_comm/bin/activate
+$ pip install -r requirements.txt
 $ deactivate
 ```
 
 ## Running
 ```bash
 $ cd apis-dcdc_batt_comm
-$ source apis-dcdc_batt_comm/bin/activate
+$ . venv/bin/activate
 $ cd drivers
 $ sudo python essx_server.py
 ```
