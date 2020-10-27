@@ -29,7 +29,7 @@ $ deactivate
 
 Here is how to run apis-dcdc_batt_comm individually.  
 
-* By default, 2 USB-RS485 dongles are required for /dev/ttyUSB0 and /dev/ttyUSB1.
+* By default, 2 USB-RS485 converters are required for /dev/ttyUSB0 and /dev/ttyUSB1.
   See apis-dcdc_batt_comm's [apis-dcdc_batt_comm_specification(JP)](https://github.com/SonyCSL/apis-dcdc_batt_comm/blob/master/doc/jp/apis-dcdc_batt_comm_specification.md) for more information.
 
 ```bash
