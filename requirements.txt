@@ -1,0 +1,5 @@
+bottle==0.12.13
+pyserial==3.4
+pyyaml==3.12
+pymodbus==1.5.2
+six==1.15.0
