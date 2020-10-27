@@ -11,19 +11,47 @@ dcdc_batt_comm上にはPython Bottleを利用してWeb Serverが立っており�
 
 ![dcdc_batt_comm](https://user-images.githubusercontent.com/71874910/94906900-40b64200-04da-11eb-84b5-1134cd3d6b36.PNG)
 
-## Getting Started
+## Installation
 
+Here is how to install apis-dcdc_batt_comm individually.  
+This software runs in Python2.7.  
 
-## Usage
+```bash
+$ git clone https://github.com/SonyCSL/apis-dcdc_batt_comm.git
+$ cd apis-dcdc_batt_comm
+$ virtualenv venv
+$ . apis-dcdc_batt_comm/bin/activate
+$ pip install -r requirements.txt
+$ deactivate
+```
+
+## Running
+
+Here is how to run apis-dcdc_batt_comm individually.  
+
+```bash
+$ cd apis-dcdc_batt_comm
+$ . venv/bin/activate
+$ cd drivers
+$ sudo python essx_server.py
+```
+
+## Stopping
+Here is how to stop apis-dcdc_batt_comm individually.  
+
+```bash
+$ bash stop.sh
+$ deactivate
+```
 
 
 ## Documentation
-[Documentation(JP)](https://github.com/SonyCSL/apis-dcdc_batt_comm/blob/master/doc/jp/apis-dcdc_batt_comm_specification.md)
+&emsp;[apis-dcdc_batt_comm_specification(JP)](https://github.com/SonyCSL/apis-dcdc_batt_comm/blob/master/doc/jp/apis-dcdc_batt_comm_specification.md)
 
 
 ## License
-[Apache License Version 2.0](https://github.com/oes-github/apis-dcdc_batt_comm/blob/master/LICENSE)
+&emsp;[Apache License Version 2.0](https://github.com/oes-github/apis-dcdc_batt_comm/blob/master/LICENSE)
 
 
 ## Notice
-[Notice](https://github.com/oes-github/apis-dcdc_batt_comm/blob/master/NOTICE.md)
+&emsp;[Notice](https://github.com/oes-github/apis-dcdc_batt_comm/blob/master/NOTICE.md)
