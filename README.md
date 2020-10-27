@@ -21,7 +21,7 @@ $ git clone https://github.com/SonyCSL/apis-dcdc_batt_comm.git
 $ cd apis-dcdc_batt_comm
 $ virtualenv venv
 $ . venv/bin/activate
-$ pip install -r requirements.txt
+$ sudo pip install -r requirements.txt
 $ deactivate
 ```
 
