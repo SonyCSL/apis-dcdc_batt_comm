@@ -13,7 +13,8 @@ dcdc_batt_comm上にはPython Bottleを利用してWeb Serverが立っており�
 
 ## Installation
 
-apis-dcdc_batt_comm runs in Python2.7.
+Here is how to install apis-dcdc_batt_comm individually.  
+This software runs in Python2.7.  
 
 ```bash
 $ git clone https://github.com/SonyCSL/apis-dcdc_batt_comm.git
@@ -25,12 +26,24 @@ $ deactivate
 ```
 
 ## Running
+
+Here is how to run apis-dcdc_batt_comm individually.  
+
 ```bash
 $ cd apis-dcdc_batt_comm
 $ . venv/bin/activate
 $ cd drivers
 $ sudo python essx_server.py
 ```
+
+## Stopping
+Here is how to stop apis-dcdc_batt_comm individually.  
+
+```bash
+$ bash stop.sh
+$ deactivate
+```
+
 
 ## Documentation
 &emsp;[apis-dcdc_batt_comm_specification(JP)](https://github.com/SonyCSL/apis-dcdc_batt_comm/blob/master/doc/jp/apis-dcdc_batt_comm_specification.md)
