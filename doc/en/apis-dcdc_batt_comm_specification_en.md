@@ -195,9 +195,8 @@ The settings are described in more detail below. Setting names in the YAML file 
 
 **・General**  
 
-|                              |                                                      |
-| ---------------------------- | ---------------------------------------------------- |
 | **Setting**                  | **Description**                                      |
+| ---------------------------- | ---------------------------------------------------- |
 | ess\_system.type             | Specifies the essx\_type\_oes                        |
 | ess\_system.dcdc\_dev:       | DC/DC setting                                        |
 | ess\_system.battery\_dev:    | Battery setting                                      |
@@ -208,9 +207,8 @@ The settings are described in more detail below. Setting names in the YAML file 
 
 **・For DC/DC devices**  
 
-|                                |                                                                     |
-| ------------------------------ | ------------------------------------------------------------------- |
 | **Setting**                    | **Description**                                                     |
+| ------------------------------ | ------------------------------------------------------------------- |
 | ess\_system.dcdc\_dev.name     | Arbitrary name                                                      |
 | ess\_system.dcdc\_dev.config   | Specifies dcdc.XXXXX (the specification replaces the XXXXX part)    |
 | ess\_system.dcdc\_dev.class    | The device class used by the dcdc                                   |
@@ -221,9 +219,8 @@ The settings are described in more detail below. Setting names in the YAML file 
 
 **・For battery devices**
 
-|                                   |                                                                        |
-| --------------------------------- | ---------------------------------------------------------------------- |
 | **Setting**                       | **Description**                                                        |
+| --------------------------------- | ---------------------------------------------------------------------- |
 | ess\_system.battery\_dev.name     | Arbitrary name                                                         |
 | ess\_system.battery\_dev.config   | Specifies battery.YYYYY (the specification replaces the YYYYY part)    |
 | ess\_system.battery\_dev.class    | The device class used by the battery.                                  |
@@ -308,9 +305,8 @@ The settings are described in more detail below. Setting names in the YAML file 
 
 **・Detailed DC/DC settings**
 
-|                                                            |                 |                                                               |
-| ---------------------------------------------------------- | --------------- | ------------------------------------------------------------- |
 | **Setting**                                                | **Description** | **Meaning**                                                   |
+| ---------------------------------------------------------- | --------------- | ------------------------------------------------------------- |
 | dcdc.dcdc\_default\_eza2500.type                           | tdk\_eza2500    | Arbitrary name                                                |
 | dcdc.dcdc\_default\_eza2500.number\_of\_dcdc\_error\_retry | 3               | The maximum number of retries performed when an error occurs  |
 | dcdc.dcdc\_default\_eza2500.number\_of\_timeout\_retry     | 3               | The maximum number of retries performed when a timeout occurs |
@@ -331,9 +327,8 @@ The settings are described in more detail below. Setting names in the YAML file 
 
 **・Detailed battery settings**
 
-|                                                        |                 |                                                                                              |
-| ------------------------------------------------------ | --------------- | -------------------------------------------------------------------------------------------- |
 | **Setting**                                            | **Description** | **Meaning**                                                                                  |
+| ------------------------------------------------------ | --------------- | -------------------------------------------------------------------------------------------- |
 | battery.battery\_emulator.config.battery\_voltage      | 52.0            | Provisional battery voltage                                                                  |
 | battery.battery\_emulator.config.battery\_current      | 20.0            | Provisional battery current                                                                  |
 | battery.battery\_emulator.config.force\_dcdc\_waiting: | No              | Whether or not the DC/DC is put in standby mode when battery energy sharing is not permitted |
@@ -358,9 +353,8 @@ Basically, ESSXServer calls the API of the controller linked in the configuratio
 
 **・Meaning of the battery\_operation\_status values**
 
-|                      |                            |
-| -------------------- | -------------------------- |
 | **Controller value** | **Meaning**                |
+| -------------------- | -------------------------- |
 | 0x00                 | Interchange not permitted  |
 | 0x01                 | Charging only permitted    |
 | 0x02                 | Discharging only permitted |
@@ -371,9 +365,8 @@ The current BatteryEmulator returns only 0x00 or 0x03.
 
 **・Correspondence of operatinMode values and strings**
 
-|           |                            |
-| --------- | -------------------------- |
 | **Value** | **String**                 |
+| --------- | -------------------------- |
 | 0x00      | “Waiting”                  |
 | 0x01      | “Heteronomy CV Charging”   |
 | 0x02      | “Heteronomy CV”            |
@@ -387,9 +380,8 @@ The current BatteryEmulator returns only 0x00 or 0x03.
 
 **・Correspondence of alarmState values and strings**
 
-|                           |               |
-| ------------------------- | ------------- |
 | **Value of CST bit 2, 3** | **String**    |
+| ------------------------- | ------------- |
 | 0                         | “No alarm”    |
 | 1                         | “Light alarm” |
 | 2                         | “Heavy alarm” |
@@ -406,9 +398,8 @@ Alarm strings are represented as four-digit hexadecimal numbers for the followin
 
 **・Strings for runningState**
 
-|                          |             |
-| ------------------------ | ----------- |
 | **Value of CST bit 0,1** | **String**  |
+| ------------------------ | ----------- |
 | 0                        | “off”       |
 | 1                        | “charge”    |
 | 2                        | “discharge” |
