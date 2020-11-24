@@ -1,7 +1,7 @@
 # apis-dcdc_batt_comm
 
 ## Introduction
-The dcdc_batt_comm component is a Device Driver for actual control of hardware to implement energy sharing according to instructions from apis-main. The controlled DC/DC Converter is assumed to be the TDK Lambda EZA2500(EZA-2500-32048SC0), with communication using the proprietary TDK Lambda protocol via RS485. The battery to be controlled is designed for communication using the Modbus RTU communication protocol via RS485. Communication with apis-main is accomplished via a Web API developed by Sony CSL and implemented on a Python Bottle Web server running on dcdc_batt_comm. 
+The dcdc_batt_comm component is a Device Driver for actual control of hardware to implement energy sharing according to instructions from apis-main. The controlled DC/DC Converter is assumed to be the TDK-Lambda EZA2500(EZA-2500-32048SC0), with communication using the proprietary TDK Lambda protocol via RS485. The battery to be controlled is designed for communication using the Modbus RTU communication protocol via RS485. Communication with apis-main is accomplished via a Web API developed by Sony CSL and implemented on a Python Bottle Web server running on dcdc_batt_comm. 
 
 ![dcdc_batt_comm](https://user-images.githubusercontent.com/71874910/94906900-40b64200-04da-11eb-84b5-1134cd3d6b36.PNG)
 
