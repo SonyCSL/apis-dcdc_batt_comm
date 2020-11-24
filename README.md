@@ -35,7 +35,7 @@ See apis-dcdc_batt_comm's [Document](https://github.com/SonyCSL/apis-dcdc_batt_c
 $ cd apis-dcdc_batt_comm
 $ . venv/bin/activate
 $ cd drivers
-$ sudo python essx_server.py
+$ sudo python3 essx_server.py
 ```
 
 ## Stopping
