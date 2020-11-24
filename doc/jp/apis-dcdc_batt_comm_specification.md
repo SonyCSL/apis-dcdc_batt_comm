@@ -1,6 +1,6 @@
 **apis-dcdc\_batt\_comm仕様書**
 ================================
-**Rev 0.56**
+**Rev 0.58**
 
 **目次**
 ========
@@ -1221,12 +1221,12 @@ pymodbusモジュールに含まれる ModbusSerialClientを拡張したクラ�
 
 | ソフトウェア | バージョン | ライセンス  | コード改変 |
 |--------------|------------|-------------|------------|
-| Python       | 2.7.9      | PSL License | 無         |
-| Bottle       | 0.12.13    | MIT License | 無         |
-| PyYAML       | 3.12       | MIT License | 無         |
-| pymodbus     | 1.5.2      | BSD License | 無         |
+| Python       | 3.6.9      | PSL License | 無         |
+| Bottle       | 0.12.18    | MIT License | 無         |
+| PyYAML       | 5.3.1       | MIT License | 無         |
+| pymodbus     | 2.4.0      | BSD License | 無         |
 | pyserial     | 3.4        | BSD License | 無         |
-| six          | 1.15.0     | MIT License | 無         |
+| wheel          | 0.30.0     | MIT License | 無         |
 
 ※諸事情によりソフトウェアバージョンは変更される可能性がある。
 
