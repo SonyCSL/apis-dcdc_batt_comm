@@ -1,6 +1,6 @@
 **apis-dcdc\_batt\_comm Specification**
 
-**Rev 0.57**
+**Rev 0.58**
 
 # **Contents**
 
@@ -974,10 +974,10 @@ The software used by dcdc\_batt\_comm and the corresponding OSS license informat
 
 | Software | Version | License     | Code Change |
 | -------- | ------- | ----------- | ----------- |
-| Python   | 2.7.9   | PSL License | None        |
-| Bottle   | 0.12.13 | MIT License | None        |
-| PyYAML   | 3.12    | MIT License | None        |
-| pymodbus | 1.5.2   | BSD License | None        |
+| Python   | 3.6.9   | PSL License | None        |
+| Bottle   | 0.12.18 | MIT License | None        |
+| PyYAML   | 5.3.1    | MIT License | None        |
+| pymodbus | 2.4.0   | BSD License | None        |
 | pyserial | 3.4     | BSD License | None        |
-| six      | 1.15.0  | MIT License | None        |
+| wheel      | 0.30.0  | MIT License | None        |
 \*Software versions may change.
