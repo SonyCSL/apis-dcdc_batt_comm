@@ -2,7 +2,7 @@
 
 from struct import *
 from essx.essx_exception import *
-import eza2500_util
+from eza2500 import eza2500_util
 
 class EZA2500CommandBase(object):
   """
@@ -67,14 +67,14 @@ class EZA2500CommandBase(object):
 #単体テストをするにはPYTHONPATHに一つ上のディレクトリを指定すること
 if __name__  == "__main__":
   from struct import *
-  import StringIO
+  from io import BytesIO
   from eza2500_device import *
   from command0101 import *
 
   class DummySerial(object):
     def __init__(self):
-      self.reader = StringIO.StringIO("\2\2\1\2\0\0\0\0\0")
-      self.writer = StringIO.StringIO()
+      self.reader = BytesIO(b"\2\2\1\2\0\0\0\0\0")
+      self.writer = BytesIO()
     def read(self, size):
       ret = self.reader.read(size)
       return ret
@@ -97,7 +97,7 @@ if __name__  == "__main__":
   # レスポンスのCMDが期待した値でないときに
   # ESSXValueExceptionが発生するか？
   # 1-1 (CMD=0)を送ったとに CMD=1でレスポンスがあった
-  dev.reader = StringIO.StringIO("\2\2\1\2\1\0\0\3\0")
+  dev.reader = BytesIO(b"\2\2\1\2\1\0\0\3\0")
   b = Command0101(eza2500_dev)
   try:
     b._recv()
@@ -107,7 +107,7 @@ if __name__  == "__main__":
 
   # レスポンスのCMDが期待したNAK値のときに
   # 正常終了するか？
-  dev.reader = StringIO.StringIO("\2\2\1\2\x80\0\0\x83\0")
+  dev.reader = BytesIO(b"\2\2\1\2\x80\0\0\x83\0")
   b = Command0101(eza2500_dev)
   b._recv()
   print("1113 ok")
@@ -115,7 +115,7 @@ if __name__  == "__main__":
   # レスポンスのCMDが期待したNAK値でないときに
   # ESSXValueExceptionが発生するか？
   # 1-1 (CMD=0)を送ったとに CMD=0x81でレスポンスがあった
-  dev.reader = StringIO.StringIO("\2\2\1\2\x81\0\0\x84\0")
+  dev.reader = BytesIO(b"\2\2\1\2\x81\0\0\x84\0")
   b = Command0101(eza2500_dev)
   try:
     b._recv()

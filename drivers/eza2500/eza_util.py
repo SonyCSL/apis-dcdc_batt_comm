@@ -1,7 +1,8 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #import sys
 from decimal import Decimal
+from struct import pack
 from essx.essx_exception import ESSXValueException
 
 def calc_check_sum(data):
@@ -13,7 +14,7 @@ def calc_check_sum(data):
   """
   cksum = 0
   for i in range(2, len(data) - 2):
-    cksum += ord(data[i])
+    cksum += data[i]
   return cksum % 65536
 
 def replace_check_sum(data):
@@ -26,8 +27,8 @@ def replace_check_sum(data):
   """
   cksum = 0
   for i in range(2, len(data) - 2):
-    cksum += ord(data[i])
-  return data[:-2] + ("%c%c" % (cksum % 256, cksum / 256))
+    cksum += data[i]
+  return data[:-2] + pack('BB', cksum % 256, cksum // 256)
 
 def verify_check_sum(data):
   """
@@ -39,8 +40,8 @@ def verify_check_sum(data):
   """
   cksum = 0
   for i in range(2, len(data) - 2):
-    cksum += ord(data[i])
-  return data[-2:] == ("%c%c" % (cksum % 256, cksum / 256))
+    cksum += data[i]
+  return data[-2:] == pack('BB', cksum % 256, cksum // 256)
 
 def q_normalize(val, q, ratings, min_val = None, max_val = None, name = "", checkrange = False):
   """
@@ -150,9 +151,9 @@ if __name__  == "__main__":
     val2 = q_denormalize(val1, 13, r, l, h)
     assert abs(val0 - val2) < 1E-20
 
-  assert calc_check_sum("123456789") == (0x33+0x34+0x35+0x36+0x37)
-  assert replace_check_sum("123456789") == "1234567\x09\x01"
-  assert verify_check_sum("1234567\x09\x01")
-  assert verify_check_sum("123456789") == False
+  assert calc_check_sum(b"123456789") == (0x33+0x34+0x35+0x36+0x37)
+  assert replace_check_sum(b"123456789") == b"1234567\x09\x01"
+  assert verify_check_sum(b"1234567\x09\x01")
+  assert verify_check_sum(b"123456789") == False
 
 

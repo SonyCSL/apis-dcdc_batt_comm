@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 #
@@ -18,6 +18,9 @@ from essx.essx_exception import ESSXException, ESSXConfigException, ESSXParamete
 from essx.essx_modbus import ESSXModbusClient
 from essx.essx_rs485 import ESSXRS485
 import yaml
+from decimal import Decimal
+import datetime
+import json
 
 parser = argparse.ArgumentParser(description = 'ESS Server')
 parser.add_argument('--host', default = "localhost")
@@ -36,18 +39,19 @@ class ESSXConfig(object):
   """
   _instance = None
 
-  def __new__(cls, *args, **kwargs):
+  def __new__(cls, config_file, *args, **kwargs):
     if not cls._instance:
       cls._instance = super(ESSXConfig, cls).__new__(cls, *args, **kwargs)
     return cls._instance
 
-  def __init__(self, config_file):
+  def __init__(self, config_file, *args, **kwargs):
+    super(ESSXConfig, self).__init__(*args, **kwargs)
     self.config_file = config_file
     self.reload()
 
   def reload(self):
     f = open(self.config_file)
-    self._config = yaml.load(f)
+    self._config = yaml.safe_load(f)
     f.close()
 
   def config(self):
@@ -408,5 +412,19 @@ def cmd_version_get():
 
 app_config = ESSXConfig(args.config)
 controller = init_controller()
+
+class MyJSONPlugin(bottle.JSONPlugin):
+  def __init__(self):
+    super().__init__()
+    self.plain_dump = self.json_dumps
+    self.json_dumps = lambda body: self.plain_dump(body, default=self.convert)
+  def convert(self, obj):
+    if isinstance(obj, Decimal):
+      return float(obj)
+    elif isinstance(obj, datetime.datetime):
+      return obj.isoformat()
+    else:
+      raise TypeError('{} is not JSON serializable'.format(repr(obj)))
+bottle.install(MyJSONPlugin())
 
 bottle.run(host = "0.0.0.0", port = args.port, debug = args.debug)

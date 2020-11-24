@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import essx
-import essx_debug
+from essx import essx_debug
 
 class ESSXException(Exception):
     """ ESSX例外の基底となるクラス """

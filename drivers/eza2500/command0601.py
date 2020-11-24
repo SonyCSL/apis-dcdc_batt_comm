@@ -4,8 +4,8 @@ from struct import pack, unpack
 import os
 from essx import essx_debug
 from essx.essx_exception import ESSXDeviceException, ESSXValueException, ESSXParameterException, ESSXException
-import eza2500_base
-import eza2500_util
+from eza2500 import eza2500_base
+from eza2500 import eza2500_util
 
 class Command0601(eza2500_base.EZA2500CommandBase):
   """ EZA2500 6-1 """
@@ -20,7 +20,7 @@ class Command0601(eza2500_base.EZA2500CommandBase):
     self.response = {}
 
   def pack_senddata(self, ad1, ad2, params = {}):
-    req = pack("<BBBBB", 0x05 ,self.CMD_LEN ,ad1 ,ad2 ,28) + "00"
+    req = pack("<BBBBB", 0x05 ,self.CMD_LEN ,ad1 ,ad2 ,28) + b"00"
     return eza2500_util.replace_check_sum(req)
 
   def send(self, ad1, ad2, params = {}):
@@ -69,7 +69,7 @@ class Command0601(eza2500_base.EZA2500CommandBase):
 
   @classmethod
   def unit_test(cls, dev = None, params = None):
-    import StringIO
+    from io import BytesIO
 
     class Dummy:
       def __init__(self):
@@ -88,7 +88,7 @@ class Command0601(eza2500_base.EZA2500CommandBase):
         _chksum = 0
         data = pack("<BBBBBHHHHHHH", 2, Command0601.ACK_LEN, 1, 2, 0x1c, _cib ,_dig ,_ubv ,_ugv ,_obv ,_ogv ,_chksum)
         _chksum = eza2500_util.calc_check_sum(data)
-        self.reader = StringIO.StringIO(data[:-2] + ('%c%c' % ((_chksum % 256), (_chksum // 256))))
+        self.reader = BytesIO(data[:-2] + pack('BB', _chksum % 256, _chksum // 256))
       def read(self, bytes):
         return self.reader.read(bytes)
       def write(self, data):
@@ -145,7 +145,7 @@ class Command0604(eza2500_base.EZA2500CommandBase):
     _ugv = int(eza2500_util.q_normalize(_ugv, 14, '380', '260', '425', 'ugv'))
     _obv = int(eza2500_util.q_normalize(_obv, 14, '48', '32', '68', 'obv'))
     _ogv = int(eza2500_util.q_normalize(_ogv, 14, '380', '260', '425', 'ogv'))
-    req = pack("<BBBBBHHHHHH", 0x05 ,self.CMD_LEN ,ad1 ,ad2 ,28 ,_cib ,_dig ,_ubv ,_ugv ,_obv ,_ogv) + "00"
+    req = pack("<BBBBBHHHHHH", 0x05 ,self.CMD_LEN ,ad1 ,ad2 ,28 ,_cib ,_dig ,_ubv ,_ugv ,_obv ,_ogv) + b"00"
     return eza2500_util.replace_check_sum(req)
 
   def send(self, ad1, ad2, params = {}):
@@ -194,7 +194,7 @@ class Command0604(eza2500_base.EZA2500CommandBase):
 
   @classmethod
   def unit_test(cls, dev = None, params = None):
-    import StringIO
+    from io import BytesIO
 
     class Dummy:
       def __init__(self):
@@ -213,7 +213,7 @@ class Command0604(eza2500_base.EZA2500CommandBase):
         _chksum = 0
         data = pack("<BBBBBHHHHHHH", 2, Command0604.ACK_LEN, 1, 2, 0x1c, _cib ,_dig ,_ubv ,_ugv ,_obv ,_ogv ,_chksum)
         _chksum = eza2500_util.calc_check_sum(data)
-        self.reader = StringIO.StringIO(data[:-2] + ('%c%c' % ((_chksum % 256), (_chksum // 256))))
+        self.reader = BytesIO(data[:-2] + pack('BB', _chksum % 256, _chksum // 256))
       def read(self, bytes):
         return self.reader.read(bytes)
       def write(self, data):

@@ -33,7 +33,7 @@ class EZADevice:
     else:
       expired = None
 
-    res = ''
+    res = b''
     while True:
       read_data = self.ser.read(size)
       res += read_data
@@ -78,12 +78,12 @@ class EZADevice:
 #単体テストをするにはPYTHONPATHに一つ上のディレクトリを指定すること
 if __name__  == "__main__":
   from struct import *
-  import StringIO
+  from io import BytesIO
 
   class DummySerial(object):
     def __init__(self):
-      self.reader = StringIO.StringIO("ABCDEFG")
-      self.writer = StringIO.StringIO()
+      self.reader = BytesIO(b"ABCDEFG")
+      self.writer = BytesIO()
     def read(self, size):
       ret = self.reader.read(size)
       return ret
@@ -96,12 +96,12 @@ if __name__  == "__main__":
   eza_dev = EZADevice(dev = DummySerial(), timeout = 1)
   wdata = pack("<BBBBBH", 5, 0, 0x31, 0x32, 0, 0x31 + 0x32)
   eza_dev.write(wdata)
-  print '201 ok'
+  print('201 ok')
   essx_debug.dump(eza_dev.read(7)) #=> no timeout
-  print '202 ok'
+  print('202 ok')
   try:
     essx_debug.dump(eza_dev.read(7)) #=> timeout
     raise ESSXFatalException("fatal")
   except ESSXTimeoutException as e:
-    print "203 ok"
+    print('203 ok')
 

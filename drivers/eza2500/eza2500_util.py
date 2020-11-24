@@ -1,9 +1,9 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #import sys
 #from decimal import Decimal
 #from essx.essx_exception import *
-from eza_util import calc_check_sum, replace_check_sum, verify_check_sum, q_normalize, q_denormalize
+from eza2500.eza_util import calc_check_sum, replace_check_sum, verify_check_sum, q_normalize, q_denormalize
 
 if __name__  == "__main__":
   #単体テストをするにはPYTHONPATHに一つ上のディレクトリを指定すること
@@ -44,9 +44,9 @@ if __name__  == "__main__":
     val2 = q_denormalize(val1, 13, r, l, h)
     assert abs(val0 - val2) < 1E-20
 
-  assert calc_check_sum("123456789") == (0x33+0x34+0x35+0x36+0x37)
-  assert replace_check_sum("123456789") == "1234567\x09\x01"
-  assert verify_check_sum("1234567\x09\x01")
-  assert verify_check_sum("123456789") == False
+  assert calc_check_sum(b"123456789") == (0x33+0x34+0x35+0x36+0x37)
+  assert replace_check_sum(b"123456789") == b"1234567\x09\x01"
+  assert verify_check_sum(b"1234567\x09\x01")
+  assert verify_check_sum(b"123456789") == False
 
 

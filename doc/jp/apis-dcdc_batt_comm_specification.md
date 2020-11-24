@@ -1,6 +1,6 @@
 **apis-dcdc\_batt\_comm仕様書**
 ================================
-**Rev 0.57**
+**Rev 0.56**
 
 **目次**
 ========
@@ -27,9 +27,9 @@
 
 &emsp;&emsp;[5.1.3.ESSXServerの設定ファイルについて](#anchor5-1-3)
 
-&emsp;&emsp;[5.1.4.ESSXServerのWeb APIと仕様](#anchor5-1-4)
+&emsp;&emsp;[5.1.4.ESSXServerのREST APIと仕様](#anchor5-1-4)
 
-&emsp;&emsp;&emsp;[5.1.4.1.Web APIのリクエスト及びレスポンスの値についての捕捉](#anchor5-1-4-1)
+&emsp;&emsp;&emsp;[5.1.4.1.REST APIのリクエスト及びレスポンスの値についての捕捉](#anchor5-1-4-1)
 
 &emsp;[5.2.コントローラー](#anchor5-2)
 
@@ -96,7 +96,7 @@ drivers/
 **4.1.ESSXServer**
 --------------
 
-Web形式のAPIを実装するメインとなるプログラムである。このプログラムを実行するとWeb Serverが立ちあがる。URLパスと処理の対応が記述されており、HTTPのRequestを受理すると適当な関数が呼ばれる。各関数はパラメータのチェックを行った後、コントローラーを呼び出す。コントローラーは以下が用意されている。  
+REST形式のAPIを実装するメインとなるプログラムである。このプログラムを実行するとWeb Serverが立ちあがる。URLパスと処理の対応が記述されており、HTTPのRequestを受理すると適当な関数が呼ばれる。各関数はパラメータのチェックを行った後、コントローラーを呼び出す。コントローラーは以下が用意されている。  
 
 -essx.essx\_type\_oes  
 
@@ -293,12 +293,12 @@ kwparams:
 dir\_pin: "P8\_7"  
 
 <a id="anchor5-1-4"></a>
-**5.1.4.ESSXServerのWeb APIと仕様**
+**5.1.4.ESSXServerのREST APIと仕様**
 
 基本的にはESSXServerは設定ファイルにひも付いたコントローラーのAPIを呼び出し、その戻りデータをJSONデータとしてクライアントに返す。リクエストとデータの実際のデータの詳細は4.2コントローラーの節に記載する。
 
 <a id="anchor5-1-4-1"></a>
-**5.1.4.1.Web APIのリクエスト及びレスポンスの値についての捕捉**
+**5.1.4.1.REST APIのリクエスト及びレスポンスの値についての捕捉**
 
 **・battery\_operation\_statusの意味**
 
@@ -362,16 +362,16 @@ Userは下記のWeb APIにてMain Controllerと情報のやり取りを行うこ
 <a id="anchor5-2-1"></a>
 **5.2.1.ESSXtypeOES**
 
-Web APIから呼び出され実際のデバイスを制御するコントローラーのクラスである。
+REST APIから呼び出され実際のデバイスを制御するコントローラーのクラスである。
 
 コマンドは vrfyメソッドでチェックされたのち runメソッドで発行される。
 
-Web API用のメソッドはその戻り値がそのままJSONデータとしてWeb APIからWeb ブラウザに返される。
+REST API用のメソッドはその戻り値がそのままJSONデータとしてREST APIからWeb ブラウザに返される。
 
 <a id="anchor5-2-1-1"></a>
 **5.2.1.1.応答速度の設計**
 
-Web API用のメソッドは要求仕様書に沿ってDCDC以外のリクエストについては0.1sec(100msec)以内を目標として設計されている。  
+REST API用のメソッドは要求仕様書に沿ってDCDC以外のリクエストについては0.1sec(100msec)以内を目標として設計されている。  
 DCDCコンバータの設定・反映確認リクエスト(/remote/get系API）については 0.6sec(600msec)以内、同じく状態確認リクエスト（/remote/set系API）は0.5s(500msec)以内を目標として設計されている。
 
 <a id="anchor5-2-1-2"></a>
@@ -445,13 +445,13 @@ self.vrfy(self.com1704, {
 
 それ以外は即時エラーとして終了する。
 
-**5.2.1.3.Web API用のメソッド**
+**5.2.1.3.REST API用のメソッド**
 
 **・log\_data(self, params)**
 
 -   params: 使用していない
 
-/1/log/data, /battery/get のWeb APIから呼ばれるメソッドである。
+/1/log/data, /battery/get のREST APIから呼ばれるメソッドである。
 
 バッテリの状態および現在の設定値を仕様書に沿って表示する。
 
@@ -519,7 +519,7 @@ self.vrfy(self.com1704, {
 
 -   params: 使用していない
 
-/remote/ioctl/setの Web APIから呼ばれるメソッドである。ｄ
+/remote/ioctl/setの REST APIから呼ばれるメソッドである。ｄ
 
 dcdc\_batt\_configの設定に沿ってDCDCの値を設定する。  
 このメソッドは以下のEZA2500のコマンドを順次発行する。
@@ -572,7 +572,7 @@ BCFは 0x0000 形式の文字列として返す。
 
 -   params: 使用していない。
 
-/remote/ioctl/get の Web APIから呼ばれるメソッドである。  
+/remote/ioctl/get の REST APIから呼ばれるメソッドである。  
 /1/log/dataと /remote/getのデータの両方を返す。
 
 {
@@ -709,7 +709,7 @@ BCFは 0x0000 形式の文字列として返す。
 
 -   params: 使用していない
 
-/remote/get および /dcdc/get の Web APIから呼ばれるメソッドである。
+/remote/get および /dcdc/get の REST APIから呼ばれるメソッドである。
 
 このメソッドは以下のEZA2500のコマンドを順次発行する
 
@@ -871,9 +871,9 @@ status\["operationMode"\]は 1-1の modeを文字列化したもの。
 
 -   params\['dig'\]: 必須
 
-/remote/set および /dcdc/set の Web APIから呼ばれるメソッドである。
+/remote/set および /dcdc/set の REST APIから呼ばれるメソッドである。
 
-Web APIの仕様書上はmode, dvg, drg, digらのパラメータは省略されても過去の値を使用することになっているが、このクラスで省略はできない。よってキャッシュを上位のレイヤで行い必ず指定しなくてはならない。
+REST APIの仕様書上はmode, dvg, drg, digらのパラメータは省略されても過去の値を使用することになっているが、このクラスで省略はできない。よってキャッシュを上位のレイヤで行い必ず指定しなくてはならない。
 
 modeは当初から16進数の文字列(EZA2500値)で指定するようになっていたため変換等は行わない。
 
@@ -967,12 +967,12 @@ status\["operationMode"\]は 1-4の modeを文字列化したもの
 
 -   params\['dig'\]: 必須
 
-/remote/set/current および /dcdc/set の Web APIから呼ばれるメソッド
+/remote/set/current および /dcdc/set の REST APIから呼ばれるメソッド
 
 上位のレイヤから mode, dvg, drgをパラメータとして渡してもよいがその  
 パラメータが使われることはない。
 
-Web APIの仕様書上は digらのパラメータは省略されても過去の値を使用することになっているが、このクラスで省略はできない。よってキャッシュを上位のレイヤで行い必ず指定しなくてはならない。
+REST APIの仕様書上は digらのパラメータは省略されても過去の値を使用することになっているが、このクラスで省略はできない。よってキャッシュを上位のレイヤで行い必ず指定しなくてはならない。
 
 このメソッドは以下のEZA2500のコマンドを順次発行する。
 
@@ -1028,11 +1028,11 @@ Web APIの仕様書上は digらのパラメータは省略されても過去の
 
 -   params\['drg'\]: 必須
 
-/remote/set/voltage および /dcdc/setの Web APIから呼ばれるメソッド
+/remote/set/voltage および /dcdc/setの REST APIから呼ばれるメソッド
 
 上位のレイヤから mode, digをパラメータとして渡してもよいがそのパラメータが使われることはない。
 
-Web APIの仕様書上は dvg, drgらのパラメータは省略されても過去の値を使用することになっているが、このクラスで省略はできない。よってキャッシュを上位のレイヤで行い  
+REST APIの仕様書上は dvg, drgらのパラメータは省略されても過去の値を使用することになっているが、このクラスで省略はできない。よってキャッシュを上位のレイヤで行い  
 必ず指定しなくてはならない。
 
 このメソッドは以下のEZA2500のコマンドを順次発行する。

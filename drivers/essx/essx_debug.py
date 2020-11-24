@@ -14,7 +14,7 @@ def log(str, level = 7):
 def hexstr(data):
   a = []
   for i in range(len(data)):
-    a.append("%02x" % ord(data[i]))
+    a.append("%02x" % data[i])
 
   return " ".join(a)
 

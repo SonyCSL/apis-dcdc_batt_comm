@@ -20,7 +20,7 @@ class <%= camelize(klass) %>(eza2500_base.EZA2500CommandBase):
 <% send_convs.each do |conv| -%>
     <%= conv %>
 <% end -%>
-    req = pack("<<%= send_packstr %>", <%= send_packsym.join(" ,") %>) + "00"
+    req = pack("<<%= send_packstr %>", <%= send_packsym.join(" ,") %>) + b"00"
     return eza2500_util.replace_check_sum(req)
 
   def send(self, ad1, ad2, params = {}):
@@ -63,7 +63,7 @@ class <%= camelize(klass) %>(eza2500_base.EZA2500CommandBase):
 
   @classmethod
   def unit_test(cls, dev = None, params = None):
-    import StringIO
+    from io import BytesIO
 
     class Dummy:
       def __init__(self):
@@ -72,7 +72,7 @@ class <%= camelize(klass) %>(eza2500_base.EZA2500CommandBase):
 <% end -%>
         data = pack("<BBBBB<%= ack_packstr %>", 2, <%= camelize(klass) %>.ACK_LEN, 1, 2, <%= '0x%02x' % command %>, <%= ack_packsym.join(" ,") %>)
         _chksum = eza2500_util.calc_check_sum(data)
-        self.reader = StringIO.StringIO(data[:-2] + ('%c%c' % ((_chksum % 256), (_chksum // 256))))
+        self.reader = BytesIO(data[:-2] + pack('BB', _chksum % 256, _chksum // 256))
       def read(self, bytes):
         return self.reader.read(bytes)
       def write(self, data):

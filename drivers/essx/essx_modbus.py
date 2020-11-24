@@ -3,7 +3,7 @@
 # for bbb84
 import sys
 try:
-    import essx_rs485 #BBB以外でも動くように
+    from essx import essx_rs485 #BBB以外でも動くように
 except ImportError as err:
     sys.stderr.write("warning: cannot import essx_rs485\n")
 

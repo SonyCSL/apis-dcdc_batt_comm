@@ -3,7 +3,7 @@
 import time
 from essx.essx_exception import ESSXTimeoutException, ESSXValueException, ESSXChecksumException, ESSXDeviceException
 import eza2500
-import essx_util
+from essx import essx_util
 import threading
 from essx import essx_debug
 
@@ -76,7 +76,7 @@ class ESSXTypeOES:
             try:
                 obj.send(self.ad1, self.ad2, params)
                 obj.recv()
-		time.sleep(0.062)
+                time.sleep(0.062)
                 return
             except ESSXTimeoutException as err:
                 print("timeout retry: " + str(timeout_retry))

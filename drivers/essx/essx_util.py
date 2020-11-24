@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from essx_exception import ESSXValueException
+from essx.essx_exception import ESSXValueException
 def alarmStateStr(v):
   """
   alarmStateの文字列を得る
