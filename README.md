@@ -43,6 +43,7 @@ $ deactivate
 
 
 ## Documentation
+&emsp;[apis-dcdc_batt_comm_specification(EN)](https://github.com/SonyCSL/apis-dcdc_batt_comm/blob/master/doc/en/apis-dcdc_batt_comm_specification_en.md)
 &emsp;[apis-dcdc_batt_comm_specification(JP)](https://github.com/SonyCSL/apis-dcdc_batt_comm/blob/master/doc/jp/apis-dcdc_batt_comm_specification.md)
 
 
