@@ -58,7 +58,7 @@ Figure 2-1
 
 The directory structure is described below.
 
-drivers/
+|drivers/||
 |---------------------|-----------------------------------------|
 |essx\_server.py      |Web server built with bottle (ESSXServer)|  
 |dcdc\_batt\_comm.yml |YAML configuration file          |  
