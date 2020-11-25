@@ -151,41 +151,40 @@ The configuration file is written in YAML. The default settings configuration fi
 > &emsp;&emsp;params: \[\]  
 > &emsp;&emsp;kwparams:  
 > &emsp;&emsp;&emsp;method: ‘rtu’  
-&emsp;&emsp;&emsp;port: “/dev/ttyO5”  
-&emsp;&emsp;&emsp;timeout: 1  
-&emsp;&emsp;&emsp;baudrate: 9600  
-&emsp;&emsp;&emsp;dir\_pin: “P8\_9”  
-&emsp;&emsp;unit: 1 \#MODBUS address  
-&emsp;&emsp;modbus\_adr\_rsoc: 30030  
-&emsp;&emsp;modbus\_adr\_status: 30031
-<br>  
-&emsp;dcdc:  
-&emsp;&emsp;dcdc\_default\_eza2500:  
-&emsp;&emsp;type: tdk\_eza2500  
-&emsp;&emsp;number\_of\_dcdc\_error\_retry: 3 \# The maximum number of retries performed when an error occurs  
-&emsp;&emsp;number\_of\_timeout\_retry: 3 \# The maximum number of retries performed when a timeout occurs  
-&emsp;&emsp;wait\_for\_retry: 0.1 \# The waiting time for retries  
-&emsp;&emsp;config:  
-&emsp;&emsp;&emsp;cib: 52 \# Maximum battery current  
-&emsp;&emsp;&emsp;ubv: 40 \# Battery low voltage threshold  
-&emsp;&emsp;&emsp;obv: 59 \# Battery overvoltage threshold  
-&emsp;&emsp;&emsp;ugv: 300 \# Grid low voltage threshold  
-&emsp;&emsp;&emsp;ogv: 400 \# Grid overvoltage threshold  
-&emsp;&emsp;&emsp;bcf: 0x0003 \# Converter settings  
-&emsp;&emsp;&emsp;cvb: 57.6 \# Battery target voltage  
-&emsp;&emsp;&emsp;dlb: 49 \# Battery end of discharge voltage  
-&emsp;&emsp;&emsp;cdb: 1.2 \# Battery maximum charge notice voltage deviation  
-&emsp;&emsp;&emsp;ddb: 1.8 \# Battery end of charge notice voltage deviation  
-&emsp;&emsp;&emsp;drb: 0.00 \# Battery droop rate  
-<br>
-&emsp;battery:  
-&emsp;&emsp;battery\_emulator:  
-&emsp;&emsp;&emsp;type: battery\_emulator  
-&emsp;&emsp;&emsp;config:  
-&emsp;&emsp;&emsp;battery\_voltage: 52.0  
-&emsp;&emsp;&emsp;&emsp;battery\_current: 20.0  
-&emsp;&emsp;&emsp;&emsp;force\_dcdc\_waiting: No
-
+> &emsp;&emsp;&emsp;port: “/dev/ttyO5”  
+> &emsp;&emsp;&emsp;timeout: 1  
+> &emsp;&emsp;&emsp;baudrate: 9600  
+> &emsp;&emsp;&emsp;dir\_pin: “P8\_9”  
+> &emsp;&emsp;unit: 1 \#MODBUS address  
+> &emsp;&emsp;modbus\_adr\_rsoc: 30030  
+> &emsp;&emsp;modbus\_adr\_status: 30031
+> <br>  
+> &emsp;dcdc:  
+> &emsp;&emsp;dcdc\_default\_eza2500:  
+> &emsp;&emsp;type: tdk\_eza2500  
+> &emsp;&emsp;number\_of\_dcdc\_error\_retry: 3 \# The maximum number of retries performed when an error occurs  
+> &emsp;&emsp;number\_of\_timeout\_retry: 3 \# The maximum number of retries performed when a timeout occurs  
+> &emsp;&emsp;wait\_for\_retry: 0.1 \# The waiting time for retries  
+> &emsp;&emsp;config:  
+> &emsp;&emsp;&emsp;cib: 52 \# Maximum battery current  
+> &emsp;&emsp;&emsp;ubv: 40 \# Battery low voltage threshold  
+> &emsp;&emsp;&emsp;obv: 59 \# Battery overvoltage threshold  
+> &emsp;&emsp;&emsp;ugv: 300 \# Grid low voltage threshold  
+> &emsp;&emsp;&emsp;ogv: 400 \# Grid overvoltage threshold  
+> &emsp;&emsp;&emsp;bcf: 0x0003 \# Converter settings  
+> &emsp;&emsp;&emsp;cvb: 57.6 \# Battery target voltage  
+> &emsp;&emsp;&emsp;dlb: 49 \# Battery end of discharge voltage  
+> &emsp;&emsp;&emsp;cdb: 1.2 \# Battery maximum charge notice voltage deviation  
+> &emsp;&emsp;&emsp;ddb: 1.8 \# Battery end of charge notice voltage deviation  
+> &emsp;&emsp;&emsp;drb: 0.00 \# Battery droop rate  
+> <br>
+> &emsp;battery:  
+> &emsp;&emsp;battery\_emulator:  
+> &emsp;&emsp;&emsp;type: battery\_emulator  
+> &emsp;&emsp;&emsp;config:  
+> &emsp;&emsp;&emsp;battery\_voltage: 52.0  
+> &emsp;&emsp;&emsp;&emsp;battery\_current: 20.0  
+> &emsp;&emsp;&emsp;&emsp;force\_dcdc\_waiting: No
 
 <br>
 
