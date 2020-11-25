@@ -979,4 +979,5 @@ The software used by dcdc\_batt\_comm and the corresponding OSS license informat
 | pymodbus | 2.4.0   | BSD License | None        |
 | pyserial | 3.4     | BSD License | None        |
 | wheel      | 0.30.0  | MIT License | None        |
+
 \*Software versions may change.
