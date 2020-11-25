@@ -135,22 +135,22 @@ optional arguments:
 The configuration file is written in YAML. The default settings configuration file must be named dcdc\_batt\_comm.yml and placed in the same directory as essx\_server.py
 
 > ess\_system:  
-&emsp;type: essx\_type\_oes  
-&emsp;dcdc\_dev:  
-&emsp;&emsp;name: dcdc1  
-&emsp;&emsp;config: dcdc\_default\_eza2500  
-&emsp;&emsp;class: ‘ESSXRS485’  
-&emsp;&emsp;vparams: \[“/dev/ttyO2”, 19200\]  
-&emsp;&emsp;kwparams:  
-&emsp;&emsp;&emsp;dir\_pin: “P8\_7”  
-<br>  
-&emsp;battery\_dev:  
-&emsp;&emsp;name: battery  
-&emsp;&emsp;config: battery\_emulator  
-&emsp;&emsp;class: ‘ESSXModbus’  
-&emsp;&emsp;params: \[\]  
-&emsp;&emsp;kwparams:  
-&emsp;&emsp;&emsp;method: ‘rtu’  
+> &emsp;type: essx\_type\_oes  
+> &emsp;dcdc\_dev:  
+> &emsp;&emsp;name: dcdc1  
+> &emsp;&emsp;config: dcdc\_default\_eza2500  
+> &emsp;&emsp;class: ‘ESSXRS485’  
+> &emsp;&emsp;vparams: \[“/dev/ttyO2”, 19200\]  
+> &emsp;&emsp;kwparams:  
+> &emsp;&emsp;&emsp;dir\_pin: “P8\_7”  
+> <br>  
+> &emsp;battery\_dev:  
+> &emsp;&emsp;name: battery  
+> &emsp;&emsp;config: battery\_emulator  
+> &emsp;&emsp;class: ‘ESSXModbus’  
+> &emsp;&emsp;params: \[\]  
+> &emsp;&emsp;kwparams:  
+> &emsp;&emsp;&emsp;method: ‘rtu’  
 &emsp;&emsp;&emsp;port: “/dev/ttyO5”  
 &emsp;&emsp;&emsp;timeout: 1  
 &emsp;&emsp;&emsp;baudrate: 9600  
@@ -184,7 +184,8 @@ The configuration file is written in YAML. The default settings configuration fi
 &emsp;&emsp;&emsp;config:  
 &emsp;&emsp;&emsp;battery\_voltage: 52.0  
 &emsp;&emsp;&emsp;&emsp;battery\_current: 20.0  
-&emsp;&emsp;&emsp;&emsp;force\_dcdc\_waiting: No  
+&emsp;&emsp;&emsp;&emsp;force\_dcdc\_waiting: No
+
 
 <br>
 
