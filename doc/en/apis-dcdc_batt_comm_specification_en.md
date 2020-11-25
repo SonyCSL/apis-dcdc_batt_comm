@@ -143,7 +143,7 @@ The configuration file is written in YAML. The default settings configuration fi
 &emsp;&emsp;vparams: \[“/dev/ttyO2”, 19200\]  
 &emsp;&emsp;kwparams:  
 &emsp;&emsp;&emsp;dir\_pin: “P8\_7”  
-<br>
+<br>  
 &emsp;battery\_dev:  
 &emsp;&emsp;name: battery  
 &emsp;&emsp;config: battery\_emulator  
@@ -184,7 +184,7 @@ The configuration file is written in YAML. The default settings configuration fi
 &emsp;&emsp;&emsp;config:  
 &emsp;&emsp;&emsp;battery\_voltage: 52.0  
 &emsp;&emsp;&emsp;&emsp;battery\_current: 20.0  
-&emsp;&emsp;&emsp;&emsp;force\_dcdc\_waiting: No
+&emsp;&emsp;&emsp;&emsp;force\_dcdc\_waiting: No  
 
 <br>
 
