@@ -58,12 +58,7 @@
 | apis-main       | 自律分散制御を可能にするSony CSLが開発した電力相互融通ソフトウェアである。(詳細はapis-main仕様書を参照。)                                            |
 | Main Controller | apis-mainがインストールされた各ノードの状態や電力融通状態をリアルタイムで表示するSony CLSが開発したWebアプリケーションのソフトウェアである。 |
 | EZA2500         | 本文ではTDKラムダ製EZA2500シリーズのカスタム品であるEZA-2500-32048SC0を指す。                                                                   |
-|                 |                                                                                                                                              |
-|                 |                                                                                                                                              |
-|                 |                                                                                                                                              |
-|                 |                                                                                                                                              |
-|                 |                                                                                                                                              |
-|                 |                                                                                                                                              |
+                                                                                                                                          |
 
 <a id="anchor2"></a>
 **2.概要**
@@ -82,11 +77,14 @@ dcdc\_batt\_commはapis-mainからの指示に従って実際にハードウェ�
 以下にディレクトリ構造以下のようになっている。
 
 drivers/  
-&emsp;essx\_server.py bottleを利用したWebサーバ(ESSXServer)  
-&emsp;dcdc\_batt\_comm.yml 設定用YAMLファイル  
-&emsp;essx/ ESSX関連のpython module  
-&emsp;eza2500/ EZA2500関連のpython module  
-&emsp;battery\_emulator バッテリエミュレータ関連のpython module  
+|||
+|---------------------|-----------------------------------------|
+|essx\_server.py      |bottleを利用したWebサーバ(ESSXServer)|  
+|dcdc\_batt\_comm.yml |設定用YAMLファイル            |  
+|essx/                |ESSX関連のpython module              |
+|eza2500/             |   EZA2500関連のpython module        |  
+|battery\_emulator    |  バッテリエミュレータ関連のpython module |
+
 
 <a id="anchor4"></a>
 4.**ソフトウェアモジュール概要**
@@ -136,22 +134,22 @@ optional arguments:
 --debug  
 --config CONFIG  
 
-・-h, --help  
+* -h, --help  
 ヘルプメッセージを表示する。  
 
-・--host  
+* --host  
 TCP/IPで Listenするアドレス。defaultは localhost。他のホストからアクセスする必要がある場合はそのホストのIPアドレスまたは 0.0.0.0を指定する必要がある。  
 
-・--port  
+* --port  
 TCP/IPで Listenする ポート番号。defaultは 8080。  
 
-・--debug  
+* --debug  
 デバッグメッセージを出すか否か  
 
-・--config  
+* --config  
 設定ファイルを指定する。デフォルトは dcdc\_batt\_comm.yml  
 
-・--goodbye  
+* --goodbye  
 /essx/goodbye APIを有効かするか否か  
 
 <a id="anchor5-1-3"></a>
@@ -159,57 +157,57 @@ TCP/IPで Listenする ポート番号。defaultは 8080。
 
 設定ファイルはYAML形式で記述する。デフォルトの設定ファイルはdcdc\_batt\_comm.ymlという名前でessx\_server.pyと同じディレクトリに置く必要がある。
 
-ess\_system:  
-&emsp;type: essx\_type\_oes  
-&emsp;dcdc\_dev:  
-&emsp;&emsp;name: dcdc1  
-&emsp;&emsp;config: dcdc\_default\_eza2500  
-&emsp;&emsp;class: 'ESSXRS485'  
-&emsp;&emsp;params: \["/dev/ttyO2", 19200\]  
-&emsp;&emsp;kwparams:  
-&emsp;&emsp;&emsp;dir\_pin: "P8\_7"  
-
-battery\_dev:  
-&emsp;name: battery  
-&emsp;config: battery\_emulator  
-&emsp;class: 'ESSXModbus'  
-&emsp;params: \[\]  
-&emsp;kwparams:  
-&emsp;&emsp;method: 'rtu'  
-&emsp;&emsp;port: "/dev/ttyO5"  
-&emsp;&emsp;timeout: 1  
-&emsp;&emsp;baudrate: 9600  
-&emsp;&emsp;dir\_pin: "P8\_9"  
-&emsp;unit: 1 \#MODBUSアドレス  
-&emsp;modbus\_adr\_rsoc: 30030  
-&emsp;modbus\_adr\_status: 30031  
-
-dcdc:  
-&emsp;dcdc\_default\_eza2500:  
-&emsp;&emsp;type: tdk\_eza2500  
-&emsp;&emsp;number\_of\_dcdc\_error\_retry: 3 \#エラー時のリトライ回数  
-&emsp;&emsp;number\_of\_timeout\_retry: 3 \#タイムアウト時のリトライ回数  
-&emsp;&emsp;wait\_for\_retry: 0.1 \#リトライする場合の待ち時間  
-&emsp;&emsp;config:  
-&emsp;&emsp;&emsp;cib: 52 \#バッテリ上限電流  
-&emsp;&emsp;&emsp;ubv: 40 \#バッテリ低電圧閾値  
-&emsp;&emsp;&emsp;obv: 59 \#バッテリ過電圧閾値  
-&emsp;&emsp;&emsp;ugv: 300 \#グリッド低電圧閾値  
-&emsp;&emsp;&emsp;ogv: 400 \#グリッド過電圧閾値  
-&emsp;&emsp;&emsp;bcf: 0x0003 \#コンバータ設定  
-&emsp;&emsp;&emsp;cvb: 57.6 \#バッテリ目標電圧  
-&emsp;&emsp;&emsp;dlb: 49 \#バッテリ放電終止電圧  
-&emsp;&emsp;&emsp;cdb: 1.2 \#バッテリ充電上限予告電圧偏差  
-&emsp;&emsp;&emsp;ddb: 1.8 \#バッテリ充電終止予告電圧偏差  
-&emsp;&emsp;&emsp;drb: 0.00 \#バッテリドループ率  
-
-battery:  
-&emsp;battery\_emulator:  
-&emsp;&emsp;type: battery\_emulator  
-&emsp;&emsp;config:  
-&emsp;&emsp;&emsp;battery\_voltage: 52.0  
-&emsp;&emsp;&emsp;battery\_current: 20.0  
-&emsp;&emsp;&emsp;force\_dcdc\_waiting: No  
+> ess\_system:  
+> &emsp;type: essx\_type\_oes  
+> &emsp;dcdc\_dev:  
+> &emsp;&emsp;name: dcdc1  
+> &emsp;&emsp;config: dcdc\_default\_eza2500  
+> &emsp;&emsp;class: 'ESSXRS485'  
+> &emsp;&emsp;params: \["/dev/ttyO2", 19200\]  
+> &emsp;&emsp;kwparams:  
+> &emsp;&emsp;&emsp;dir\_pin: "P8\_7"  
+> 
+> battery\_dev:  
+> &emsp;name: battery  
+> &emsp;config: battery\_emulator  
+> &emsp;class: 'ESSXModbus'  
+> &emsp;params: \[\]  
+> &emsp;kwparams:  
+> &emsp;&emsp;method: 'rtu'  
+> &emsp;&emsp;port: "/dev/ttyO5"  
+> &emsp;&emsp;timeout: 1  
+> &emsp;&emsp;baudrate: 9600  
+> &emsp;&emsp;dir\_pin: "P8\_9"  
+> &emsp;unit: 1 \#MODBUSアドレス  
+> &emsp;modbus\_adr\_rsoc: 30030  
+> &emsp;modbus\_adr\_status: 30031  
+> 
+> dcdc:  
+> &emsp;dcdc\_default\_eza2500:  
+> &emsp;&emsp;type: tdk\_eza2500  
+> &emsp;&emsp;number\_of\_dcdc\_error\_retry: 3 \#エラー時のリトライ回数  
+> &emsp;&emsp;number\_of\_timeout\_retry: 3 \#タイムアウト時のリトライ回数  
+> &emsp;&emsp;wait\_for\_retry: 0.1 \#リトライする場合の待ち時間  
+> &emsp;&emsp;config:  
+> &emsp;&emsp;&emsp;cib: 52 \#バッテリ上限電流  
+> &emsp;&emsp;&emsp;ubv: 40 \#バッテリ低電圧閾値  
+> &emsp;&emsp;&emsp;obv: 59 \#バッテリ過電圧閾値  
+> &emsp;&emsp;&emsp;ugv: 300 \#グリッド低電圧閾値  
+> &emsp;&emsp;&emsp;ogv: 400 \#グリッド過電圧閾値  
+> &emsp;&emsp;&emsp;bcf: 0x0003 \#コンバータ設定  
+> &emsp;&emsp;&emsp;cvb: 57.6 \#バッテリ目標電圧  
+> &emsp;&emsp;&emsp;dlb: 49 \#バッテリ放電終止電圧  
+> &emsp;&emsp;&emsp;cdb: 1.2 \#バッテリ充電上限予告電圧偏差  
+> &emsp;&emsp;&emsp;ddb: 1.8 \#バッテリ充電終止予告電圧偏差  
+> &emsp;&emsp;&emsp;drb: 0.00 \#バッテリドループ率  
+> 
+> battery:  
+> &emsp;battery\_emulator:  
+> &emsp;&emsp;type: battery\_emulator  
+> &emsp;&emsp;config:  
+> &emsp;&emsp;&emsp;battery\_voltage: 52.0  
+> &emsp;&emsp;&emsp;battery\_current: 20.0  
+> &emsp;&emsp;&emsp;force\_dcdc\_waiting: No  
 
 **・設定項目詳細**
 
@@ -217,9 +215,8 @@ battery:
 
 **・全般**
 
-|                               |                                          |
+| **設定項目名**                | **設定内容**                             ||                               |                                          |
 |-------------------------------|------------------------------------------|
-| **設定項目名**                | **設定内容**                             |
 | ess\_system.type              | essx\_type\_oesのを指定する              |
 | ess\_system.dcdc\_dev:        | DCDCの設定                               |
 | ess\_system.battery\_dev:     | バッテリの設定                           |
@@ -228,9 +225,8 @@ battery:
 
 **・DCDCデバイス関連**
 
-|                                |                                                        |
-|--------------------------------|--------------------------------------------------------|
 | **設定項目名**                 | **設定内容**                                           |
+|--------------------------------|--------------------------------------------------------|
 | ess\_system.dcdc\_dev.name     | 任意の名称                                             |
 | ess\_system.dcdc\_dev.config   | dcdc.XXXXXの指定(XXXXXに入る部分を指定する)            |
 | ess\_system.dcdc\_dev.class    | dcdcが使用するデバイスのクラス                         |
@@ -239,9 +235,8 @@ battery:
 
 **・バッテリデバイス関連**
 
-|                                   |                                                           |
-|-----------------------------------|-----------------------------------------------------------|
 | **設定項目名**                    | **設定内容**                                              |
+|-----------------------------------|-----------------------------------------------------------|
 | ess\_system.battery\_dev.name     | 任意の名称                                                |
 | ess\_system.battery\_dev.config   | battery.YYYYYの指定(YYYYYに入る部分を指定する)            |
 | ess\_system.battery\_dev.class    | batteryが使用するデバイスのクラス                         |
@@ -250,17 +245,16 @@ battery:
 
 **・dcdc\_devに使用できるクラスとその設定**
 
-<table><tbody><tr class="odd"><td><strong>クラス名</strong></td><td><strong>設定項目名</strong></td><td><strong>設定内容</strong></td></tr><tr class="even"><td><p>ESSXRS485</p><p>RS485を利用するときのクラス</p></td><td>params</td><td><p>[デバイスファイル, 通信速度]</p><p>例）</p><p>["/dev/ttyO2", 19200]</p></td></tr><tr class="odd"><td></td><td>kwparams</td><td><p>{"dir_pin": RS485方向制御PIN}</p><p>例）</p><p>{"dir_pin": "P8_7"}</p></td></tr><tr class="even"><td></td><td>address1</td><td>DCDC側アドレス</td></tr><tr class="odd"><td></td><td>address2</td><td>ESSX側アドレス</td></tr></tbody></table>
+<table><tbody><tr class="odd"><td><strong>クラス名</strong></td><td><strong>設定項目名</strong></td><td><strong>設定内容</strong></td></tr><tr class="even"><td rowspan="4"><p>ESSXRS485</p><p>RS485を利用するときのクラス</p></td><td>params</td><td><p>[デバイスファイル, 通信速度]</p><p>例）</p><p>["/dev/ttyO2", 19200]</p></td></tr><tr class="odd"><td>kwparams</td><td><p>{"dir_pin": RS485方向制御PIN}</p><p>例）</p><p>{"dir_pin": "P8_7"}</p></td></tr><tr class="even"><td>address1</td><td>DCDC側アドレス</td></tr><tr class="odd"><td>address2</td><td>ESSX側アドレス</td></tr></tbody></table>
 
 **・battery\_devにて使用できるクラス**
 
-<table><tbody><tr class="odd"><td><strong>クラス名</strong></td><td><strong>設定項目名</strong></td><td><strong>設定内容</strong></td></tr><tr class="even"><td><p>ESSXModbus</p><p>Modbusを利用するときのクラス</p></td><td>params</td><td>[]</td></tr><tr class="odd"><td></td><td>kwparams</td><td><p>ModbusSerialClientのパラメータ</p><p>例）</p><p>{"method": "rtu", "port": "/dev/ttyO5", "timeout": 1, "baudrate": 9600, "dir_pin": "P8_9"}</p></td></tr><tr class="even"><td></td><td>unit</td><td>modbusのアドレス</td></tr><tr class="odd"><td></td><td>modbus_adr_rsoc</td><td>rsocのアドレス</td></tr><tr class="even"><td></td><td>modbus_adr_status</td><td>statusのアドレス</td></tr></tbody></table>
+<table><tbody><tr class="odd"><td><strong>クラス名</strong></td><td><strong>設定項目名</strong></td><td><strong>設定内容</strong></td></tr><tr class="even"><td rowspan="5"><p>ESSXModbus</p><p>Modbusを利用するときのクラス</p></td><td>params</td><td>[]</td></tr><tr class="odd"><td>kwparams</td><td><p>ModbusSerialClientのパラメータ</p><p>例）</p><p>{"method": "rtu", "port": "/dev/ttyO5", "timeout": 1, "baudrate": 9600, "dir_pin": "P8_9"}</p></td></tr><tr class="even"><td>unit</td><td>modbusのアドレス</td></tr><tr class="odd"><td>modbus_adr_rsoc</td><td>rsocのアドレス</td></tr><tr class="even"><td>modbus_adr_status</td><td>statusのアドレス</td></tr></tbody></table>
 
 **・DCDCの詳細設定**
 
-|                                                            |              |                              |
-|------------------------------------------------------------|--------------|------------------------------|
 | **設定項目名**                                             | **設定内容** | **意味**                     |
+|------------------------------------------------------------|--------------|------------------------------|
 | dcdc.dcdc\_default\_eza2500.type                           | tdk\_eza2500 | 任意の名称                   |
 | dcdc.dcdc\_default\_eza2500.number\_of\_dcdc\_error\_retry | 3            | エラー時のリトライ回数       |
 | dcdc.dcdc\_default\_eza2500.number\_of\_timeout\_retry     | 3            | タイムアウト時のリトライ回数 |
@@ -279,9 +273,8 @@ battery:
 
 **・バッテリの詳細設定**
 
-|                                                        |              |                                                              |
-|--------------------------------------------------------|--------------|--------------------------------------------------------------|
 | **設定項目名**                                         | **設定内容** | **意味**                                                     |
+|--------------------------------------------------------|--------------|--------------------------------------------------------------|
 | battery.battery\_emulator.config.battery\_voltage      | 52.0         | バッテリ電圧暫定値                                           |
 | battery.battery\_emulator.config.battery\_current      | 20.0         | バッテリ電流暫定値                                           |
 | battery.battery\_emulator.config.force\_dcdc\_waiting: | No           | バッテリ融通不許可時にDCDCコンバータを待機モードにするか否か |
@@ -302,9 +295,8 @@ dir\_pin: "P8\_7"
 
 **・battery\_operation\_statusの意味**
 
-|                        |              |
-|------------------------|--------------|
 | **コントローラーの値** | **意味**     |
+|------------------------|--------------|
 | 0x00                   | 融通不許可   |
 | 0x01                   | 充電のみ許可 |
 | 0x02                   | 放電のみ許可 |
@@ -314,9 +306,8 @@ dir\_pin: "P8\_7"
 
 **・operatinModeの値と文字列の対応**
 
-|        |                            |
-|--------|----------------------------|
 | **値** | **文字列**                 |
+|--------|----------------------------|
 | 0x00   | "Waiting"                  |
 | 0x01   | "Hateronomy CV Charging"   |
 | 0x02   | "Heteronomy CV"            |
@@ -328,9 +319,8 @@ dir\_pin: "P8\_7"
 
 **・alarmStateの値と文字列の対応**
 
-|                       |               |
-|-----------------------|---------------|
 | **CSTの bit2, 3の値** | **文字列**    |
+|-----------------------|---------------|
 | 0                     | "No alarm"    |
 | 1                     | "Light alarm" |
 | 2                     | "Heavy alarm" |
@@ -346,9 +336,8 @@ alarmの文字列化
 
 **・runningStateの文字列化**
 
-|                      |             |
-|----------------------|-------------|
 | **CSTの bit0,1の値** | **文字列**  |
+|----------------------|-------------|
 | 0                    | "off"       |
 | 1                    | "charge"    |
 | 2                    | "discharge" |
@@ -407,13 +396,10 @@ ESSXTypeOES(dcdc\_dev = None, bat\_dev = None, dcdc\_config = None, bat\_config 
 
 コマンドのパラメータのチェックをする。問題があれば例外が発生する。例えば 17-4のパラメータをチェックするには
 
-self.vrfy(self.com1704, {
-
-'lgc': a, 'lgd': b,
-
-'lbc': c, 'lbd': d
-
-})
+> self.vrfy(self.com1704, {  
+> &emsp;‘lgc’: a, ‘lgd’: b,  
+> &emsp;‘lbc’: c, ‘lbd’: d  
+> })
 
 のように実行する。
 
@@ -459,61 +445,36 @@ self.vrfy(self.com1704, {
 
 以下のようなdictを返す
 
-{
+> {  
+&emsp;“battery\_voltage”: 200,  
+&emsp;“battery\_rsoc”: 0,  
+&emsp;“rsoc”: 0,  
+&emsp;“battery\_comm\_err”: 0,  
+&emsp;“ups\_operation\_schedule”: 0,  
+&emsp;“charge\_discharge\_power”: 400,  
+&emsp;“ups\_operation\_mode”: {  
+&emsp;&emsp;“mode”: 0,  
+&emsp;&emsp;“stop\_mode”: 0,  
+&emsp;&emsp;“parameter”: 0  
+&emsp;},  
+&emsp;“battery\_warning”: 0,  
+&emsp;“battery\_status”: 0,  
+&emsp;“battery\_operation\_status”: 0,  
+&emsp;“battery\_current”: 2,  
+&emsp;“dischargeable\_time”: {  
+&emsp;&emsp;“hour”: 0,  
+&emsp;&emsp;“minute”: 0  
+&emsp;},  
+&emsp;“system\_time”: {    
+&emsp;&emsp;“minute”: 0,      
+&emsp;&emsp;“year”: 0,    
+&emsp;&emsp;“month”: 0,    
+&emsp;&emsp;“day”: 0,    
+&emsp;&emsp;“hour”: 0  
+&emsp;}  
+}  
 
-"battery\_voltage" : 200,
-
-"battery\_rsoc" : 0,
-
-"rsoc" : 0,
-
-"battery\_comm\_err" : 0,
-
-"ups\_operation\_schedule" : 0,
-
-"charge\_discharge\_power" : 400,
-
-"ups\_operation\_mode" : {
-
-"mode" : 0,
-
-"stop\_mode" : 0,
-
-"parameter" : 0
-
-},
-
-"battery\_warning" : 0,
-
-"battery\_status" : 0,
-
-"battery\_operation\_status" : 0,
-
-"battery\_current" : 2,
-
-"dischargeable\_time" : {
-
-"hour" : 0,
-
-"minute" : 0
-
-},
-
-"system\_time" : {
-
-"minute" : 0,
-
-"year" : 0,
-
-"month" : 0,
-
-"day" : 0,
-
-"hour" : 0
-
-}
-
-}
+<br>
 
 **・remote\_ioctl\_set(self, params)**
 
@@ -538,35 +499,23 @@ BCFは 0x0000 形式の文字列として返す。
 
 戻り値
 
-{
-
-"dcdc\_converter\_name": "dcdc1",
-
-"dcdc\_setup\_parameter": {
-
-"bcf": "0x000b",
-
-"cdb": 6,
-
-"cib": 52.08,
-
-"cvb": 48,
-
-"ddb": 1,
-
-"dlb": 48,
-
-"drb": 0.0,
-
-"obv": 48,
-
-"ogv": 380,
-
-"ubv": 48,
-
-"ugv": 380,
-
+> {  
+&emsp;“dcdc\_converter\_name”: “dcdc1”,  
+&emsp;“dcdc\_setup\_parameter”: {  
+&emsp;&emsp;“bcf”: “0x000b”,  
+&emsp;&emsp;“cdb”: 6,  
+&emsp;&emsp;“cib”: 52.08,  
+&emsp;&emsp;“cvb”: 48,  
+&emsp;&emsp;“ddb”: 1,  
+&emsp;&emsp;“dlb”: 48,  
+&emsp;&emsp;“drb”: 0.0,  
+&emsp;&emsp;“obv”: 48,  
+&emsp;&emsp;“ogv”: 380,  
+&emsp;&emsp;“ubv”: 48,  
+&emsp;&emsp;“ugv”: 380,  
 }
+
+<br>
 
 **・remote\_ioctl\_get(self, params)**
 
@@ -575,135 +524,73 @@ BCFは 0x0000 形式の文字列として返す。
 /remote/ioctl/get の REST APIから呼ばれるメソッドである。  
 /1/log/dataと /remote/getのデータの両方を返す。
 
-{
-
-"battery\_comm\_err": 0,
-
-"battery\_current": 2.0,
-
-"battery\_operation\_status": 0,
-
-"battery\_rsoc": 0.0,
-
-"battery\_status": 0,
-
-"battery\_voltage": 200,
-
-"battery\_warning": 0,
-
-"charge\_discharge\_power": 400.0,
-
-"dischargeable\_time": {
-
-"hour": 0,
-
-"minute": 0,
-
-},
-
-"meter": {
-
-"ib": 49.9987060546875,
-
-"ig": 49.9958984375,
-
-"tmp": 20,
-
-"vb": 240,
-
-"vg": 240,
-
-"wb": 100,
-
-"wg": 100,
-
-},
-
-"param": {
-
-"cib": 52,
-
-"dig": 7.8125,
-
-"obv": 59,
-
-"ogv": 400,
-
-"ubv": 40,
-
-"ugv": 300,
-
-},
-
-"powermeter": {
-
-"i1": 0,
-
-"kwh1": 0,
-
-"kwh2": 0,
-
-"p1": 0,
-
-"p2": 0,
-
-"v1": 0,
-
-},
-
-"rsoc": 0.0,
-
-"status": {
-
-"alarm": "0000 0000 0000",
-
-"alarmState": "No alarm",
-
-"operationMode": "Waiting",
-
-"runningState": "off",
-
-"status": "0x0000",
-
-"statusName": "Ignore",
-
-},
-
-"system\_time": {
-
-"day": 0,
-
-"hour": 0,
-
-"minute": 0,
-
-"month": 0,
-
-"year": 0,
-
-},
-
-"ups\_operation\_mode": {
-
-"mode": 0,
-
-"parameter": 0,
-
-"stop\_mode": 0,
-
-},
-
-"ups\_operation\_schedule": 0,
-
-"vdis": {
-
-"drg": 0.25,
-
-"dvg": 240,
-
-},
-
-}
+> {  
+&emsp;“battery\_comm\_err”: 0,  
+&emsp;“battery\_current”: 2.0,  
+&emsp;“battery\_operation\_status”: 0,  
+&emsp;“battery\_rsoc”: 0.0,  
+&emsp;“battery\_status”: 0,  
+&emsp;“battery\_voltage”: 200,  
+&emsp;“battery\_warning”: 0,  
+&emsp;“charge\_discharge\_power”: 400.0,  
+&emsp;“dischargeable\_time”: {  
+&emsp;&emsp;“hour”: 0,  
+&emsp;&emsp;“minute”: 0,  
+&emsp;},  
+&emsp;“meter”: {  
+&emsp;&emsp;“ib”: 49.9987060546875,  
+&emsp;&emsp;“ig”: 49.9958984375,  
+&emsp;&emsp;“tmp”: 20,  
+&emsp;&emsp;“vb”: 240,  
+&emsp;&emsp;“vg”: 240,  
+&emsp;&emsp;“wb”: 100,  
+&emsp;&emsp;“wg”: 100,  
+&emsp;},  
+&emsp;“param”: {  
+&emsp;&emsp;“cib”: 52,  
+&emsp;&emsp;“dig”: 7.8125,  
+&emsp;&emsp;“obv”: 59,  
+&emsp;&emsp;“ogv”: 400,  
+&emsp;&emsp;“ubv”: 40,  
+&emsp;&emsp;“ugv”: 300,  
+&emsp;},  
+&emsp;“powermeter”: {  
+&emsp;&emsp;“i1”: 0,  
+&emsp;&emsp;“kwh1”: 0,  
+&emsp;&emsp;“kwh2”: 0,  
+&emsp;&emsp;“p1”: 0,  
+&emsp;&emsp;“p2”: 0,  
+&emsp;&emsp;“v1”: 0,  
+&emsp;},  
+&emsp;“rsoc”: 0.0,  
+&emsp;“status”: {  
+&emsp;&emsp;“alarm”: “0000 0000 0000”,  
+&emsp;&emsp;“alarmState”: “No alarm”,  
+&emsp;&emsp;“operationMode”: “Waiting”,  
+&emsp;&emsp;“runningState”: “off”,  
+&emsp;&emsp;“status”: “0x0000”,  
+&emsp;&emsp;“statusName”: “Ignore”,  
+&emsp;},  
+&emsp;“system\_time”: {  
+&emsp;&emsp;“day”: 0,  
+&emsp;&emsp;“hour”: 0,  
+&emsp;&emsp;“minute”: 0,  
+&emsp;&emsp;“month”: 0,  
+&emsp;&emsp;“year”: 0,  
+&emsp;},   
+&emsp;“ups\_operation\_mode”: {  
+&emsp;&emsp;“mode”: 0,  
+&emsp;&emsp;“parameter”: 0,  
+&emsp;&emsp;“stop\_mode”: 0,  
+&emsp;},  
+&emsp;“ups\_operation\_schedule”: 0,  
+&emsp;“vdis”: {  
+&emsp;&emsp;“drg”: 0.25,  
+&emsp;&emsp;“dvg”: 240,  
+&emsp;},  
+}  
+
+<br>
 
 **・/remote/get(self, params)**
 
@@ -733,83 +620,47 @@ status\["alarm"\]は CSTの bit0,1 およびCSTの bit2,3 および 9-1の alm1�
 status\["runningState"\]は CSTの bit0,1を文字列化したもの。  
 status\["operationMode"\]は 1-1の modeを文字列化したもの。
 
-{
+> {  
+&emsp;“meter”: {  
+&emsp;&emsp;“ib”: 52.08,  
+&emsp;&emsp;“ig”: 7.8125,  
+&emsp;&emsp;“tmp”: 20,  
+&emsp;&emsp;“vb”: 48,  
+&emsp;&emsp;“vg”: 380,  
+&emsp;&emsp;“wb”: 98.876953125,  
+&emsp;&emsp;“wg”: 98.876953125,  
+&emsp;},  
+&emsp;“param”: {  
+&emsp;&emsp;“cib”: 52,  
+&emsp;&emsp;“dig”: 7.8125,  
+&emsp;&emsp;“obv”: 59,  
+&emsp;&emsp;“ogv”: 400,  
+&emsp;&emsp;“ubv”: 40,  
+&emsp;&emsp;“ugv”: 300,  
+&emsp;},  
+&emsp;“powermeter”: {  
+&emsp;&emsp;“i1”: 0,  
+&emsp;&emsp;“kwh1”: 0,  
+&emsp;&emsp;“kwh2”: 0,    
+&emsp;&emsp;“p1”: 0,  
+&emsp;&emsp;“p2”: 0,  
+&emsp;&emsp;“v1”: 0,  
+&emsp;},  
+&emsp;“status”: {  
+&emsp;&emsp;“alarm”: “0000 0000 0000”,  
+&emsp;&emsp;“alarmState”: “No alarm”,  
+&emsp;&emsp;“operationMode”: “Waiting”,  
+&emsp;&emsp;“runningState”: “off”,  
+&emsp;&emsp;“status”: “0x0000”,  
+&emsp;&emsp;“statusName”: “Ignore”,  
+&emsp;},  
+&emsp;“vdis”: {  
+&emsp;&emsp;“drg”: 0.25,  
+&emsp;&emsp;“dvg”: 380,  
+&emsp;},  
+}  
 
-"meter": {
-
-"ib": 52.08,
-
-"ig": 7.8125,
-
-"tmp": 20,
-
-"vb": 48,
-
-"vg": 380,
-
-"wb": 98.876953125,
-
-"wg": 98.876953125,
-
-},
-
-"param": {
-
-"cib": 52,
-
-"dig": 7.8125,
-
-"obv": 59,
-
-"ogv": 400,
-
-"ubv": 40,
-
-"ugv": 300,
-
-},
-
-"powermeter": {
-
-"i1": 0,
-
-"kwh1": 0,
-
-"kwh2": 0,
-
-"p1": 0,
-
-"p2": 0,
-
-"v1": 0,
-
-},
-
-"status": {
-
-"alarm": "0000 0000 0000",
-
-"alarmState": "No alarm",
-
-"operationMode": "Waiting",
-
-"runningState": "off",
-
-"status": "0x0000",
-
-"statusName": "Ignore",
-
-},
-
-"vdis": {
-
-"drg": 0.25,
-
-"dvg": 380,
-
-},
-
-}
+<br>
 
 **・remote\_get\_status(self, params)**
 
@@ -829,37 +680,24 @@ status\["alarmState"\]は 2-1の CST bit2,3を文字列化したもの。
 status\["runningState"\]は CSTの bit0,1を文字列化したもの。  
 status\["operationMode"\]は 1-1の modeを文字列化したもの。
 
-{
+> {  
+&emsp;“meter”: {  
+&emsp;&emsp;“ib”: 52.08,  
+&emsp;&emsp;“ig”: 7.8125,  
+&emsp;&emsp;“tmp”: 20,  
+&emsp;&emsp;“vb”: 48,  
+&emsp;&emsp;“vg”: 380,  
+&emsp;&emsp;“wb”: 98.876953125,  
+&emsp;&emsp;“wg”: 98.876953125,  
+},  
+&emsp;“status”: {  
+&emsp;&emsp;“alarmState”: “No alarm”,  
+&emsp;&emsp;“operationMode”: “Waiting”,  
+&emsp;&emsp;“runningState”: “off”,  
+&emsp;},  
+}  
 
-"meter": {
-
-"ib": 52.08,
-
-"ig": 7.8125,
-
-"tmp": 20,
-
-"vb": 48,
-
-"vg": 380,
-
-"wb": 98.876953125,
-
-"wg": 98.876953125,
-
-},
-
-"status": {
-
-"alarmState": "No alarm",
-
-"operationMode": "Waiting",
-
-"runningState": "off",
-
-},
-
-}
+<br>
 
 **・remote\_set(self, params)**
 
@@ -901,67 +739,39 @@ status\["operationMode"\]は 1-4の modeを文字列化したもの
 
 戻り値
 
-{
+> {  
+&emsp;“meter”: {  
+&emsp;&emsp;“ib”: 52.08,  
+&emsp;&emsp;“ig”: 7.8125,    
+&emsp;&emsp;“tmp”: 20,  
+&emsp;&emsp;“vb”: 48,  
+&emsp;&emsp;“vg”: 380,  
+&emsp;&emsp;“wb”: 98.876953125,  
+&emsp;&emsp;“wg”: 98.876953125,  
+&emsp;},  
+&emsp;“param”: {  
+&emsp;&emsp;“cib”: 52,  
+&emsp;&emsp;“dig”: 7.8125,  
+&emsp;&emsp;“obv”: 59,  
+&emsp;&emsp;“ogv”: 400,  
+&emsp;&emsp;“ubv”: 40,  
+&emsp;&emsp;“ugv”: 300,  
+&emsp;},  
+&emsp;“status”: {  
+&emsp;&emsp;“alarm”: “0000 0000 0000”,  
+&emsp;&emsp;“alarmState”: “No alarm”,  
+&emsp;&emsp;“operationMode”: “Heteronomy CV”,  
+&emsp;&emsp;“runningState”: “off”,  
+&emsp;&emsp;“status”: “0x0002”,  
+&emsp;&emsp;“statusName”: “Ignore”,  
+&emsp;},  
+&emsp;“vdis”: {  
+&emsp;&emsp;“drg”: 0.0999755859375,  
+&emsp;&emsp;“dvg”: 380,  
+&emsp;},  
+}  
 
-"meter": {
-
-"ib": 52.08,
-
-"ig": 7.8125,
-
-"tmp": 20,
-
-"vb": 48,
-
-"vg": 380,
-
-"wb": 98.876953125,
-
-"wg": 98.876953125,
-
-},
-
-"param": {
-
-"cib": 52,
-
-"dig": 7.8125,
-
-"obv": 59,
-
-"ogv": 400,
-
-"ubv": 40,
-
-"ugv": 300,
-
-},
-
-"status": {
-
-"alarm": "0000 0000 0000",
-
-"alarmState": "No alarm",
-
-"operationMode": "Heteronomy CV",
-
-"runningState": "off",
-
-"status": "0x0002",
-
-"statusName": "Ignore",
-
-},
-
-"vdis": {
-
-"drg": 0.0999755859375,
-
-"dvg": 380,
-
-},
-
-}
+<br>
 
 **・/remote\_set\_current(self, params)**
 
@@ -984,43 +794,27 @@ REST APIの仕様書上は digらのパラメータは省略されても過去�
 
 戻り値
 
-{
+> {  
+&emsp;“meter”: {  
+&emsp;&emsp;“ib”: 52.08,  
+&emsp;&emsp;“ig”: 7.8125,  
+&emsp;&emsp;“tmp”: 20,  
+&emsp;&emsp;“vb”: 48,  
+&emsp;&emsp;“vg”: 380,  
+&emsp;&emsp;“wb”: 98.876953125,  
+&emsp;&emsp;“wg”: 98.876953125,  
+&emsp;},  
+&emsp;“param”: {  
+&emsp;&emsp;“cib”: 52,  
+&emsp;&emsp;“dig”: 7.8125,  
+&emsp;&emsp;“obv”: 59,  
+&emsp;&emsp;“ogv”: 400,  
+&emsp;&emsp;“ubv”: 40,  
+&emsp;&emsp;“ugv”: 300,  
+&emsp;},  
+}  
 
-"meter": {
-
-"ib": 52.08,
-
-"ig": 7.8125,
-
-"tmp": 20,
-
-"vb": 48,
-
-"vg": 380,
-
-"wb": 98.876953125,
-
-"wg": 98.876953125,
-
-},
-
-"param": {
-
-"cib": 52,
-
-"dig": 7.8125,
-
-"obv": 59,
-
-"ogv": 400,
-
-"ubv": 40,
-
-"ugv": 300,
-
-},
-
-}
+<br>
 
 **・/remote\_set\_voltage(self, params)**
 
@@ -1045,35 +839,24 @@ REST APIの仕様書上は dvg, drgらのパラメータは省略されても過
 
 戻り値
 
-{
+> {  
+&emsp;“meter”: {  
+&emsp;&emsp;“ib”: 52.08,  
+&emsp;&emsp;“ig”: 7.8125,  
+&emsp;&emsp;“tmp”: 20,  
+&emsp;&emsp;“vb”: 48,  
+&emsp;&emsp;“vg”: 380,  
+&emsp;&emsp;“wb”: 98.876953125,  
+&emsp;&emsp;“wg”: 98.876953125,  
+&emsp;},  
+&emsp;“vdis”: {  
+&emsp;&emsp;“drg”: 0.0999755859375,  
+&emsp;&emsp;“dvg”: 299.98291015625,  
+&emsp;},  
+}  
 
-"meter": {
+<br>
 
-"ib": 52.08,
-
-"ig": 7.8125,
-
-"tmp": 20,
-
-"vb": 48,
-
-"vg": 380,
-
-"wb": 98.876953125,
-
-"wg": 98.876953125,
-
-},
-
-"vdis": {
-
-"drg": 0.0999755859375,
-
-"dvg": 299.98291015625,
-
-},
-
-}
 
 <a id="anchor5-3"></a>
 **5.3.デバイス**
