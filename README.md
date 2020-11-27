@@ -12,7 +12,7 @@ Here is how to install apis-dcdc_batt_comm individually.
 ```bash
 $ git clone https://github.com/SonyCSL/apis-dcdc_batt_comm.git
 $ cd apis-dcdc_batt_comm
-$ virtualenv venv
+$ python3 -m venv venv
 $ . venv/bin/activate
 $ sudo pip install -r requirements.txt
 $ deactivate
